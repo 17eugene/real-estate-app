@@ -1,0 +1,155 @@
+@import "../../variables.scss";
+
+.header {
+  padding: 15px 0;
+  background-color: $lightBlueColor;
+  box-shadow: 0px 2px 6px rgba(24, 24, 24, 0.75),
+    0px 2px 15px rgba(247, 247, 229, 0.8);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  margin-right: 6rem;
+
+  & > p:nth-child(1) {
+    color: $blueColor;
+  }
+
+  & > p:nth-child(2) {
+    color: $redColor;
+  }
+}
+
+.searchForm {
+  background-color: $inputColor;
+  width: 300px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+
+  & > input {
+    outline: none;
+    border: none;
+    width: 250px;
+    height: 40px;
+    font-size: 1rem;
+    background-color: $inputColor;
+    padding: 7px 15px;
+  }
+
+  & > .icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .searchForm {
+    width: auto;
+    background-color: $lightBlueColor;
+
+    & > input {
+      display: none;
+    }
+  }
+}
+
+// NAVIGATION
+
+.navigation {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 0;
+
+  & li {
+    padding: 0.8rem 1rem;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+    }
+  }
+
+  & li:nth-child(3) {
+    background-color: $primaryButtonColor;
+    border-radius: $primaryBorderRadius;
+    box-shadow: 2px 2px 8px rgba(24, 24, 24, 0.75);
+
+    & a {
+      color: $lightBlueColor;
+    }
+  }
+
+  & li a {
+    text-decoration: none;
+    color: #000;
+  }
+}
+
+.burgerMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+
+  & span:nth-child(1) {
+    width: 30px;
+    height: 3px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+  }
+  & span:nth-child(2) {
+    width: 20px;
+    height: 3px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+  }
+  & span:nth-child(3) {
+    width: 12px;
+    height: 3px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+  }
+}
+
+.burgerMenu.active {
+  & span:nth-child(1) {
+    transform: translateY(290%) rotate(-45deg);
+  }
+  & span:nth-child(2) {
+    transform: translateX(-300%);
+    opacity: 0;
+  }
+  & span:nth-child(3) {
+    transform: translateY(-250%) rotate(45deg);
+    width: 30px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .navigation {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1199px) {
+  .burgerMenu {
+    display: none;
+  }
+}
