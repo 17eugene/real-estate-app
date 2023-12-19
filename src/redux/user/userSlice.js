@@ -28,7 +28,7 @@ const userSlice = createSlice({
       })
       .addCase(userOperations.signin.fulfilled, (state, action) => {
         console.log(action);
-        state.userData = action.payload.userData.id;
+        state.userData = action.payload.userData;
         state.loading = false;
         state.error = null;
       })
