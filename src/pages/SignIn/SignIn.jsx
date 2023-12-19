@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { userOperations } from "../../redux/user/user-operations";
 import Button from "../../components/Button/Button";
 import FormInput from "../../components/FormInput/FormInput";
 import { MdEmail } from "react-icons/md";
@@ -10,8 +12,9 @@ import styles from "../SignUp/SignUp.module.scss";
 const SignIn = () => {
   const [formValue, setFormValue] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
@@ -24,28 +27,13 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    const result = await dispatch(userOperations.signin(formValue));
 
-    const request = await fetch("http://localhost:2222/api/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      credentials: "include",
-      body: JSON.stringify(formValue),
-    });
-
-    const data = await request.json();
-    if (data.code !== 202) {
-      setError(data.message);
-      setLoading(false);
-      return;
+    console.log(result);
+    if (result.type.includes("fulfilled")) {
+      e.target.reset();
+      navigate("/", { replace: true });
     }
-    setLoading(false);
-    setError(null);
-    e.target.reset();
-    navigate("/", { replace: true });
   };
 
   const showPasswordClick = () => {
@@ -96,7 +84,7 @@ const SignIn = () => {
         />
         <Button disabled={loading} text="Sign In with GOOGLE" type="button" />
         <p>
-          Need an account? <Link to="/signup">Sign In</Link>
+          Need an account? <Link to="/signup">Sign Up</Link>
         </p>
       </form>
     </div>

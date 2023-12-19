@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { userOperations } from "../../redux/user/user-operations";
 import Button from "../../components/Button/Button";
 import FormInput from "../../components/FormInput/FormInput";
 import { BiSolidUser } from "react-icons/bi";
@@ -11,8 +13,9 @@ import styles from "./SignUp.module.scss";
 const SignUp = () => {
   const [formValue, setFormValue] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
@@ -25,26 +28,11 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    const result = await dispatch(userOperations.signup(formValue));
 
-    const request = await fetch("http://localhost:2222/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(formValue),
-    });
-
-    const data = await request.json();
-    if (data.code !== 201) {
-      setError(data.message);
-      setLoading(false);
-      return;
+    if (result.type.includes("fulfilled")) {
+      navigate("/signin", { replace: true });
     }
-    setLoading(false);
-    setError(null);
-    e.target.reset();
-    navigate("/signin", { replace: true });
   };
 
   const showPasswordClick = () => {
