@@ -31,6 +31,7 @@ const SignUp = () => {
     const result = await dispatch(userOperations.signup(formValue));
 
     if (result.type.includes("fulfilled")) {
+      e.target.reset();
       navigate("/signin", { replace: true });
     }
   };
