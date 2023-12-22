@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userOperations } from "../../redux/user/user-operations";
 import Button from "../../components/Button/Button";
 import FormInput from "../../components/FormInput/FormInput";
+import OAuth from "../../components/OAuth/OAuth";
 import { BiSolidUser } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 import { IoEye } from "react-icons/io5";
@@ -95,7 +96,7 @@ const SignUp = () => {
           text="Sign Up"
           type="submit"
         />
-        <Button disabled={loading} text="Sign up with GOOGLE" type="button" />
+        <OAuth />
         <p>
           Have an account? <Link to="/signin">Sign In</Link>
         </p>

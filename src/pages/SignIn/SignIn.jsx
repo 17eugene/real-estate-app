@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userOperations } from "../../redux/user/user-operations";
 import Button from "../../components/Button/Button";
+import OAuth from "../../components/OAuth/OAuth";
 import FormInput from "../../components/FormInput/FormInput";
 import { MdEmail } from "react-icons/md";
 import { IoEye } from "react-icons/io5";
@@ -82,7 +83,7 @@ const SignIn = () => {
           text="Sign In"
           type="submit"
         />
-        <Button disabled={loading} text="Sign In with GOOGLE" type="button" />
+        <OAuth />
         <p>
           Need an account? <Link to="/signup">Sign Up</Link>
         </p>

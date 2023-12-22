@@ -37,6 +37,20 @@ const userSlice = createSlice({
         state.error = action.payload.message;
         state.loading = false;
         state.userData = null;
+      })
+      .addCase(userOperations.googleAuth.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userOperations.googleAuth.fulfilled, (state, action) => {
+        console.log(action);
+        state.userData = action.payload.userData;
+        state.error = null;
+        state.loading = false;
+      })
+      .addCase(userOperations.googleAuth.rejected, (state, action) => {
+        state.error = action.payload.message;
+        state.loading = false;
+        state.userData = null;
       });
   },
 });
