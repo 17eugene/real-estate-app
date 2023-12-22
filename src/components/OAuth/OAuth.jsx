@@ -3,7 +3,7 @@ import { app } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userOperations } from "../../redux/user/user-operations";
-import Button from "../Button/Button";
+import Button from "../ui/Button/Button";
 
 const OAuth = () => {
   const dispatch = useDispatch();
