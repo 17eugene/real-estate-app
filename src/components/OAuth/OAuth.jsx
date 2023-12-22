@@ -1,28 +1,34 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { app } from "../../firebase";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { userOperations } from "../../redux/user/user-operations";
 import Button from "../Button/Button";
 
 const OAuth = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const googleAuthHanleClick = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth(app);
 
-      const result = await signInWithPopup(auth, provider);
-      console.log(result);
+    const userCredentials = await signInWithPopup(auth, provider);
+    console.log(userCredentials);
 
-      await dispatch(
-        userOperations.googleAuth({
-          username: result.user.displayName,
-          email: result.user.email,
-          avatar: result.user.photoURL,
-        })
-      );
-    } catch (error) {}
+    const result = await dispatch(
+      userOperations.googleAuth({
+        username: userCredentials.user.displayName,
+        email: userCredentials.user.email,
+        avatar: userCredentials.user.photoURL,
+      })
+    );
+
+    console.log(result);
+
+    if (!result?.error?.message) {
+      navigate("/", { replace: true });
+    }
   };
 
   return (
