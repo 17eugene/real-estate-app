@@ -1,0 +1,56 @@
+@import "../../../variables.scss";
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editForm {
+  position: relative;
+  padding: 1.5rem 1rem 1rem 1rem;
+  background-color: #fff;
+  border-radius: $primaryBorderRadius;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  & input {
+    @extend %input;
+  }
+
+  & button {
+    @extend %button;
+    background-color: $blueColor;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(125, 125, 250, 0.8);
+    }
+  }
+}
+
+.closeIcon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.55rem;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  fill: rgba(0, 0, 0, 0.45);
+  transition: all 0.15s linear;
+
+  &:hover,
+  &:focus {
+    fill: rgba(0, 0, 0, 0.95);
+    scale: 1.1;
+  }
+}

@@ -1,10 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Container from "../Container/Container";
+import Avatar from "../ui/Avatar/Avatar";
 import { IoSearchSharp } from "react-icons/io5";
 import styles from "./Header.module.scss";
 
 const Header = () => {
+  const currentUser = useSelector((state) => state.user.userData);
   return (
     <header className={styles.header}>
       <Container>
@@ -29,9 +32,13 @@ const Header = () => {
             <li>
               <NavLink to="/about">About</NavLink>
             </li>
-            <li>
-              <NavLink to="/signin">Sign In</NavLink>
-            </li>
+            {currentUser ? (
+              <Avatar source={currentUser?.avatar} width="45px" height="45px" />
+            ) : (
+              <li>
+                <NavLink to="/signin">Sign In</NavLink>
+              </li>
+            )}
           </ul>
 
           <div className={styles.burgerMenu}>

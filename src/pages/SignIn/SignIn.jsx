@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/Button/Button";
-import FormInput from "../../components/FormInput/FormInput";
+import { useSelector, useDispatch } from "react-redux";
+import { userOperations } from "../../redux/user/user-operations";
+import Button from "../../components/ui/Button/Button";
+import FormInput from "../../components/ui/FormInput/FormInput";
+import OAuth from "../../components/OAuth/OAuth";
 import { MdEmail } from "react-icons/md";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
@@ -10,8 +13,9 @@ import styles from "../SignUp/SignUp.module.scss";
 const SignIn = () => {
   const [formValue, setFormValue] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
@@ -24,28 +28,13 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    const result = await dispatch(userOperations.signin(formValue));
 
-    const request = await fetch("http://localhost:2222/api/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      credentials: "include",
-      body: JSON.stringify(formValue),
-    });
-
-    const data = await request.json();
-    if (data.code !== 202) {
-      setError(data.message);
-      setLoading(false);
-      return;
+    console.log(result);
+    if (result.type.includes("fulfilled")) {
+      e.target.reset();
+      navigate("/", { replace: true });
     }
-    setLoading(false);
-    setError(null);
-    e.target.reset();
-    navigate("/", { replace: true });
   };
 
   const showPasswordClick = () => {
@@ -94,9 +83,9 @@ const SignIn = () => {
           text="Sign In"
           type="submit"
         />
-        <Button disabled={loading} text="Sign In with GOOGLE" type="button" />
+        <OAuth />
         <p>
-          Need an account? <Link to="/signup">Sign In</Link>
+          Need an account? <Link to="/signup">Sign Up</Link>
         </p>
       </form>
     </div>

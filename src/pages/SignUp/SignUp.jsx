@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/Button/Button";
-import FormInput from "../../components/FormInput/FormInput";
+import { useSelector, useDispatch } from "react-redux";
+import { userOperations } from "../../redux/user/user-operations";
+import Button from "../../components/ui/Button/Button";
+import FormInput from "../../components/ui/FormInput/FormInput";
+import OAuth from "../../components/OAuth/OAuth";
 import { BiSolidUser } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 import { IoEye } from "react-icons/io5";
@@ -11,8 +14,9 @@ import styles from "./SignUp.module.scss";
 const SignUp = () => {
   const [formValue, setFormValue] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
@@ -25,26 +29,12 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    const result = await dispatch(userOperations.signup(formValue));
 
-    const request = await fetch("http://localhost:2222/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(formValue),
-    });
-
-    const data = await request.json();
-    if (data.code !== 201) {
-      setError(data.message);
-      setLoading(false);
-      return;
+    if (result.type.includes("fulfilled")) {
+      e.target.reset();
+      navigate("/signin", { replace: true });
     }
-    setLoading(false);
-    setError(null);
-    e.target.reset();
-    navigate("/signin", { replace: true });
   };
 
   const showPasswordClick = () => {
@@ -106,7 +96,7 @@ const SignUp = () => {
           text="Sign Up"
           type="submit"
         />
-        <Button disabled={loading} text="Sign up with GOOGLE" type="button" />
+        <OAuth />
         <p>
           Have an account? <Link to="/signin">Sign In</Link>
         </p>

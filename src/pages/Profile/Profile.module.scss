@@ -1,0 +1,74 @@
+@import "../../variables.scss";
+
+.profileFormWrapper {
+  margin: 0 auto;
+  width: fit-content;
+  margin-top: 5rem;
+
+  &__buttonsWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    & button {
+      @extend %button;
+      cursor: pointer;
+
+      &:nth-child(1) {
+        background-color: $blueColor;
+
+        &:hover,
+        &:focus {
+          background-color: rgba(125, 125, 250, 0.8);
+        }
+      }
+
+      &:nth-child(2) {
+        background-color: $redColor;
+
+        &:hover,
+        &:focus {
+          background-color: rgba(235, 10, 10, 0.8);
+        }
+      }
+    }
+  }
+}
+
+.userInfo {
+  padding: 1rem;
+  margin-top: 1rem;
+
+  &__field {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3rem;
+
+    margin-bottom: 1.5rem;
+
+    & > p {
+      font-size: $regularTextSize;
+    }
+
+    & > p > span {
+      font-size: $secondaryTitleTextSize;
+      margin-left: 1rem;
+    }
+  }
+
+  & .editIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 8px 7px 8px 10px;
+    cursor: pointer;
+    transition: background-color, 0.25s ease-in-out;
+    border-radius: $primaryBorderRadius;
+
+    &:hover,
+    &:focus {
+      background-color: $lightGrey;
+    }
+  }
+}
