@@ -24,8 +24,6 @@ const OAuth = () => {
       })
     );
 
-    console.log(result);
-
     if (!result?.error?.message) {
       navigate("/", { replace: true });
     }

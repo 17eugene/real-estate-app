@@ -49,10 +49,23 @@ const userSlice = createSlice({
       })
       .addCase(userOperations.googleAuth.rejected, (state, action) => {
         state.error =
-          "Username is longer then maximum allowed length (20)" ||
+          "Username is longer then maximum allowed length (50)" ||
           action.payload.message;
         state.loading = false;
         state.userData = null;
+      })
+      .addCase(userOperations.update.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userOperations.update.fulfilled, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(userOperations.update.rejected, (state, action) => {
+        state.userData = null;
+        state.loading = false;
+        console.log(action);
       });
   },
 });
