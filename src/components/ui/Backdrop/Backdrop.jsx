@@ -11,8 +11,6 @@ const Backdrop = ({ username, email, setIsOpenEditForm }) => {
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.user.userData);
 
-  console.log(id);
-
   const inputChangeHandler = (e) => {
     setEditFormValue({
       ...editFormValue,
@@ -24,11 +22,13 @@ const Backdrop = ({ username, email, setIsOpenEditForm }) => {
     setIsOpenEditForm(false);
   };
 
-  console.log(id);
-
   const onSubmitHandleClick = async (e) => {
     e.preventDefault();
-    await dispatch(userOperations.update({ id, ...editFormValue }));
+    const res = await dispatch(userOperations.update({ id, ...editFormValue }));
+
+    if (res.payload.code === 204) {
+      setIsOpenEditForm(false);
+    }
   };
   return (
     <div className={styles.backdrop}>

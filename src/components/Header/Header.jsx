@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Container from "../Container/Container";
@@ -7,7 +7,12 @@ import { IoSearchSharp } from "react-icons/io5";
 import styles from "./Header.module.scss";
 
 const Header = () => {
+  const [isActiveBurger, setIsActiveBurger] = useState(false);
   const currentUser = useSelector((state) => state.user.userData);
+
+  const onBurgerClickHandler = () => {
+    setIsActiveBurger(!isActiveBurger);
+  };
   return (
     <header className={styles.header}>
       <Container>
@@ -41,7 +46,14 @@ const Header = () => {
             )}
           </ul>
 
-          <div className={styles.burgerMenu}>
+          <div
+            onClick={onBurgerClickHandler}
+            className={
+              isActiveBurger
+                ? `${styles.burgerMenu} ${styles.active}`
+                : `${styles.burgerMenu}`
+            }
+          >
             <span></span>
             <span></span>
             <span></span>

@@ -110,36 +110,39 @@
   padding: 10px;
 
   & span:nth-child(1) {
-    width: 30px;
-    height: 3px;
+    width: 35px;
+    height: 4px;
     background-color: #000;
     border-radius: $primaryBorderRadius;
+    transition: all 0.35s linear;
   }
   & span:nth-child(2) {
-    width: 20px;
-    height: 3px;
+    width: 23px;
+    height: 4px;
     background-color: #000;
     border-radius: $primaryBorderRadius;
+    transition: all 0.27s linear;
   }
   & span:nth-child(3) {
     width: 12px;
-    height: 3px;
+    height: 4px;
     background-color: #000;
     border-radius: $primaryBorderRadius;
+    transition: all 0.40s linear;
   }
 }
 
 .burgerMenu.active {
   & span:nth-child(1) {
-    transform: translateY(290%) rotate(-45deg);
+    transform: translateY(200%) rotate(-45deg);
   }
   & span:nth-child(2) {
-    transform: translateX(-300%);
+    transform: translateX(150%);
     opacity: 0;
   }
   & span:nth-child(3) {
     transform: translateY(-250%) rotate(45deg);
-    width: 30px;
+    width: 35px;
   }
 }
 

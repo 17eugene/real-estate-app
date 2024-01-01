@@ -3,7 +3,45 @@
 .profileFormWrapper {
   margin: 0 auto;
   width: fit-content;
-  margin-top: 5rem;
+  margin-top: 3rem;
+
+  & > h1 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  & > .loaderWrapper {
+    width: 100%;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .changeAvatar {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: $smallTextSize;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: all 0.15s linear;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+
+    & + input {
+      visibility: hidden;
+      display: none;
+    }
+
+    &Error {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: $smallTextSize;
+      color: $redColor;
+    }
+  }
 
   &__buttonsWrapper {
     display: flex;
@@ -38,7 +76,6 @@
 
 .userInfo {
   padding: 1rem;
-  margin-top: 1rem;
 
   &__field {
     display: flex;

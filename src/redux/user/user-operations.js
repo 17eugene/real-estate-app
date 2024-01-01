@@ -69,7 +69,8 @@ const update = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     const editedUserData = {
       username: credentials.username,
-      email: credentials.email,
+      // email: credentials.email,
+      avatar: credentials.avatar,
     };
     const response = await fetch(
       `http://localhost:2222/api/user/update/${credentials.id}`,
@@ -82,7 +83,7 @@ const update = createAsyncThunk(
       }
     );
 
-    if (response.code !== 204) {
+    if (response.status !== 200) {
       const data = rejectWithValue(await response.json());
       return data;
     }
