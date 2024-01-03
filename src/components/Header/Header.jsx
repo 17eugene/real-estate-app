@@ -2,16 +2,17 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Container from "../Container/Container";
+import MobileMenu from "../MobileMenu/MobileMenu";
 import Avatar from "../ui/Avatar/Avatar";
 import { IoSearchSharp } from "react-icons/io5";
 import styles from "./Header.module.scss";
 
 const Header = () => {
-  const [isActiveBurger, setIsActiveBurger] = useState(false);
+  const [isActiveMobileMenu, setIsActiveMobileMenu] = useState(false);
   const currentUser = useSelector((state) => state.user.userData);
 
   const onBurgerClickHandler = () => {
-    setIsActiveBurger(!isActiveBurger);
+    setIsActiveMobileMenu(!isActiveMobileMenu);
   };
   return (
     <header className={styles.header}>
@@ -49,7 +50,7 @@ const Header = () => {
           <div
             onClick={onBurgerClickHandler}
             className={
-              isActiveBurger
+              isActiveMobileMenu
                 ? `${styles.burgerMenu} ${styles.active}`
                 : `${styles.burgerMenu}`
             }
@@ -60,6 +61,10 @@ const Header = () => {
           </div>
         </div>
       </Container>
+      <MobileMenu
+        isActiveMobileMenu={isActiveMobileMenu}
+        setIsActiveMobileMenu={setIsActiveMobileMenu}
+      />
     </header>
   );
 };

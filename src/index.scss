@@ -2,6 +2,7 @@
 @import-normalize;
 
 body {
+  overflow-x: hidden;
   margin: 0;
   font-family: "Oswald", "Source Serif 4", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,6 +30,7 @@ ul,
 ol {
   list-style: none;
   margin: 0;
+  padding: 0;
 }
 
 a {
