@@ -2,6 +2,7 @@
 
 .profileFormWrapper {
   margin: 0 auto;
+  min-width: 300px;
   width: fit-content;
   margin-top: 3rem;
 
@@ -42,36 +43,6 @@
       color: $redColor;
     }
   }
-
-  &__buttonsWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-
-    & button {
-      @extend %button;
-      cursor: pointer;
-
-      &:nth-child(1) {
-        background-color: $blueColor;
-
-        &:hover,
-        &:focus {
-          background-color: rgba(125, 125, 250, 0.8);
-        }
-      }
-
-      &:nth-child(2) {
-        background-color: $redColor;
-
-        &:hover,
-        &:focus {
-          background-color: rgba(235, 10, 10, 0.8);
-        }
-      }
-    }
-  }
 }
 
 .userInfo {
@@ -107,5 +78,42 @@
     &:focus {
       background-color: $lightGrey;
     }
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+
+  & button {
+    @extend %button;
+    cursor: pointer;
+
+    &:nth-child(1) {
+      background-color: $blueColor;
+
+      &:hover,
+      &:focus {
+        background-color: rgba(125, 125, 250, 0.8);
+      }
+    }
+
+    &:nth-child(2) {
+      background-color: $redColor;
+
+      &:hover,
+      &:focus {
+        background-color: rgba(235, 10, 10, 0.8);
+      }
+    }
+  }
+
+  & + p {
+    font-size: $smallTextSize;
+    color: $redColor;
+    cursor: pointer;
   }
 }

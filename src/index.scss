@@ -7,8 +7,13 @@ body {
   font-family: "Oswald", "Source Serif 4", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
   background-color: rgb(247, 249, 247);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 h1,

@@ -94,4 +94,28 @@ const update = createAsyncThunk(
   }
 );
 
-export const userOperations = { signup, signin, googleAuth, update };
+const deleteUser = createAsyncThunk(
+  "user/delete",
+  async (id, { rejectWithValue }) => {
+    const response = await fetch(
+      `http://localhost:2222/api/user/delete/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
+
+    if (response.status !== 200) {
+      const data = rejectWithValue(await response.json());
+      return data;
+    }
+  }
+);
+
+export const userOperations = {
+  signup,
+  signin,
+  googleAuth,
+  update,
+  deleteUser,
+};

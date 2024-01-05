@@ -8,12 +8,14 @@ const FormInput = ({
   id,
   name,
   value,
-  disabled
+  disabled,
+  readOnly
 }) => {
   return (
     <>
       <label htmlFor={id}>{labelText}</label>
       <input
+        readOnly={readOnly}
         value={value}
         type={type}
         name={name}

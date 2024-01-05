@@ -33,7 +33,6 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(userOperations.signin.rejected, (state, action) => {
-        console.log(action);
         state.error = action.payload.message;
         state.loading = false;
         state.userData = null;
@@ -42,7 +41,6 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(userOperations.googleAuth.fulfilled, (state, action) => {
-        console.log(action);
         state.userData = action.payload.userData;
         state.error = null;
         state.loading = false;
@@ -58,15 +56,25 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(userOperations.update.fulfilled, (state, action) => {
-        console.log(action);
         state.userData = action.payload.userData;
         state.loading = false;
         state.error = null;
       })
       .addCase(userOperations.update.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+      .addCase(userOperations.deleteUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(userOperations.deleteUser.fulfilled, (state, action) => {
         state.userData = null;
         state.loading = false;
-        console.log(action);
+        state.error = null;
+      })
+      .addCase(userOperations.deleteUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
       });
   },
 });

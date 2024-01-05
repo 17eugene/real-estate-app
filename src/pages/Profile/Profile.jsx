@@ -12,14 +12,15 @@ import Loader from "../../components/ui/Loader/Loader";
 import Button from "../../components/ui/Button/Button";
 import Avatar from "../../components/ui/Avatar/Avatar";
 import Backdrop from "../../components/ui/Backdrop/Backdrop";
+import PopupWindow from "../../components/PopupWindow/PopupWindow";
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
   const [isOpenedEditForm, setIsOpenEditForm] = useState(false);
   const [file, setFile] = useState(undefined);
   const [fileUploadError, setFileUploadError] = useState(false);
-
   const [loading, setLoading] = useState(false);
+  const [isOpenedConfirmation, setIsOpenedConfirmation] = useState(false);
 
   const avatarInputRef = useRef(null);
   const dispatch = useDispatch();
@@ -82,15 +83,30 @@ const Profile = () => {
   const onEditHanleClick = () => {
     setIsOpenEditForm(true);
   };
+
+  const onDeleteAccountClick = () => {
+    setIsOpenedConfirmation(true);
+  };
+
+  const onConfirmDeleteAccountClick = () => {
+    dispatch(userOperations.deleteUser(id));
+  };
+
   return (
     <>
-      {isOpenedEditForm ? (
-        <Backdrop
-          username={username}
-          email={email}
+      <Backdrop
+        isOpenedEditForm={isOpenedEditForm}
+        isOpenedConfirmation={isOpenedConfirmation}
+      >
+        <PopupWindow
+          isOpenedEditForm={isOpenedEditForm}
           setIsOpenEditForm={setIsOpenEditForm}
+          isOpenedConfirmation={isOpenedConfirmation}
+          setIsOpenedConfirmation={setIsOpenedConfirmation}
+          onConfirmDeleteAccountClick={onConfirmDeleteAccountClick}
         />
-      ) : null}
+      </Backdrop>
+
       <div className={styles.profileFormWrapper}>
         <h1>Profile</h1>
         {loading ? (
@@ -132,12 +148,12 @@ const Profile = () => {
               E-mail: <span>{email}</span>
             </p>
           </div>
-
-          <div className={styles.profileFormWrapper__buttonsWrapper}>
-            <Button type="button" text="edit" onClick={onEditHanleClick} />
-            <Button type="button" text="sign out" />
-          </div>
         </div>
+        <div className={styles.buttonsWrapper}>
+          <Button type="button" text="edit" onClick={onEditHanleClick} />
+          <Button type="button" text="sign out" />
+        </div>
+        <p onClick={onDeleteAccountClick}>Delete account</p>
       </div>
     </>
   );
