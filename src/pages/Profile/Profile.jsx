@@ -19,7 +19,7 @@ const Profile = () => {
   const [isOpenedEditForm, setIsOpenEditForm] = useState(false);
   const [file, setFile] = useState(undefined);
   const [fileUploadError, setFileUploadError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [imgUploadloading, setImgUploadLoading] = useState(false);
   const [isOpenedConfirmation, setIsOpenedConfirmation] = useState(false);
 
   const avatarInputRef = useRef(null);
@@ -27,6 +27,7 @@ const Profile = () => {
   const { id, username, email, avatar } = useSelector(
     (state) => state?.user?.userData
   );
+  const { loading } = useSelector((state) => state?.user);
 
   useEffect(() => {
     const handleFileUpload = (file) => {
@@ -43,19 +44,19 @@ const Profile = () => {
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
           if (progress) {
-            setLoading(true);
+            setImgUploadLoading(true);
           }
         },
         (err) => {
           setFileUploadError(true);
-          setLoading(false);
+          setImgUploadLoading(false);
           console.log(err);
         },
 
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
             dispatch(userOperations.update({ id, avatar: downloadUrl }));
-            setLoading(false);
+            setImgUploadLoading(false);
             setFileUploadError(false);
           });
         }
@@ -92,6 +93,10 @@ const Profile = () => {
     dispatch(userOperations.deleteUser(id));
   };
 
+  const onSignoutClick = () => {
+    dispatch(userOperations.signout());
+  };
+
   return (
     <>
       <Backdrop
@@ -109,7 +114,7 @@ const Profile = () => {
 
       <div className={styles.profileFormWrapper}>
         <h1>Profile</h1>
-        {loading ? (
+        {imgUploadloading ? (
           <div className={styles.loaderWrapper}>
             <Loader height="50px" width="100px" radius="9" />
           </div>
@@ -151,7 +156,12 @@ const Profile = () => {
         </div>
         <div className={styles.buttonsWrapper}>
           <Button type="button" text="edit" onClick={onEditHanleClick} />
-          <Button type="button" text="sign out" />
+          <Button
+            loading={isOpenedEditForm && loading ? false : loading}
+            type="button"
+            text="sign out"
+            onClick={onSignoutClick}
+          />
         </div>
         <p onClick={onDeleteAccountClick}>Delete account</p>
       </div>

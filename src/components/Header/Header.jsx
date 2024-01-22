@@ -39,7 +39,16 @@ const Header = () => {
               <NavLink to="/about">About</NavLink>
             </li>
             {currentUser ? (
-              <Avatar source={currentUser?.avatar} width="45px" height="45px" />
+              <>
+                <li>
+                  <NavLink to="/create">Create</NavLink>
+                </li>
+                <Avatar
+                  source={currentUser?.avatar}
+                  width="45px"
+                  height="45px"
+                />
+              </>
             ) : (
               <li>
                 <NavLink to="/signin">Sign In</NavLink>

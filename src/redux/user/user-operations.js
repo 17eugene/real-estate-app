@@ -112,10 +112,18 @@ const deleteUser = createAsyncThunk(
   }
 );
 
+const signout = createAsyncThunk("auth/signout", async () => {
+  await fetch("http://localhost:2222/api/auth/signout", {
+    method: "POST",
+    credentials: "include",
+  });
+});
+
 export const userOperations = {
   signup,
   signin,
   googleAuth,
   update,
   deleteUser,
+  signout,
 };

@@ -87,16 +87,16 @@
     }
   }
 
-  & li:nth-child(3) {
-    background-color: $primaryButtonColor;
-    border-radius: $primaryBorderRadius;
-    box-shadow: 2px 2px 8px rgba(24, 24, 24, 0.75);
-    margin-left: 2rem;
+  // & li:nth-child(3) {
+  //   background-color: $primaryButtonColor;
+  //   border-radius: $primaryBorderRadius;
+  //   box-shadow: 2px 2px 8px rgba(24, 24, 24, 0.75);
+  //   margin-left: 2rem;
 
-    & a {
-      color: $lightBlueColor;
-    }
-  }
+  //   & a {
+  //     color: $lightBlueColor;
+  //   }
+  // }
 
   & li a {
     text-decoration: none;

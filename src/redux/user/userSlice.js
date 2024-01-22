@@ -75,6 +75,18 @@ const userSlice = createSlice({
       .addCase(userOperations.deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
+      })
+      .addCase(userOperations.signout.pending, (state, _) => {
+        state.loading = true;
+      })
+      .addCase(userOperations.signout.fulfilled, (state, _) => {
+        state.userData = null;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(userOperations.signout.rejected, (state, action) => {
+        state.loading = false;
+        console.log(action);
       });
   },
 });
