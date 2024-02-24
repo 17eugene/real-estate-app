@@ -1,81 +1,211 @@
-import { useState } from "react";
+import { useState, useRef, Children } from "react";
+import { useDispatch } from "react-redux";
+import { listingOperations } from "../../redux/listing/listing-operations";
+import { useForm } from "react-hook-form";
+import { listingSchema } from "../../utils/formValidationSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "../../components/ui/FormInput/FormInput";
-import Checkbox from "../../components/ui/Checkbox/Checkbox";
 import Button from "../../components/ui/Button/Button";
-import RequireMark from "../../components/ui/RequireMark/RequireMark";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { app } from "../../firebase";
 import { options, checkOptions } from "../../utils/listingOptions";
 import styles from "./CreateListing.module.scss";
+import Loader from "../../components/ui/Loader/Loader";
 
 const CreateListing = () => {
-  const [listingForm, setListingForm] = useState({});
-  // const [checkedFeaturesState] = useState(
-  //   new Array(checkOptions.length).fill(false)
-  // );
+  const [uploadedImages, setUploadedImages] = useState([]);
+  const [uploadFilesWarning, setUploadFilesWarning] = useState(false);
+  const [imgUploadLoading, setImgUploadLoading] = useState(false);
 
-  // console.log(checkedFeaturesState);
+  const dispatch = useDispatch();
 
-  const changeInputHandler = (e, position) => {
-    setListingForm({
-      ...listingForm,
-      [e.target.name]:
-        e.target.type === "checkbox"
-          ? (checkOptions[position].checked = e.target.checked)
-          : e.target.value,
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(listingSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      address: "",
+      type: "",
+      furnished: false,
+      "pets allowed": false,
+      offer: false,
+      bedrooms: 1,
+      price: null,
+      files: [],
+    },
+  });
+
+  const inputRef = useRef(null);
+  // const selectedImages = Array.from(watch("files"));
+
+  const onFormSubmit = (data) => {
+    data.files = uploadedImages;
+    console.log(data);
+    // dispatch(listingOperations.create(data));
+  };
+
+  const storeImage = async (file) => {
+    return new Promise((resolve, reject) => {
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + file?.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          if (progress) {
+            setImgUploadLoading(true);
+          }
+        },
+        (error) => {
+          reject(error);
+          setImgUploadLoading(false);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+            resolve(downloadUrl);
+            setImgUploadLoading(false);
+          });
+        }
+      );
     });
   };
 
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
-    console.log(listingForm);
+  // const uploadImagesSubmit = () => {
+  //   if (selectedImages.length > 0) {
+  //     const images = [];
+
+  //     for (let i = 0; i < selectedImages.length; i++) {
+  //       images.push(storeImage(selectedImages[i]));
+  //     }
+
+  //     Promise.all(images).then((urls) => {
+  //       if (urls.length > 6) {
+  //         urls.length = 6;
+  //         setUploadFilesWarning("Maximum 6 photos can be added");
+  //       }
+
+  //       setFiles(files?.concat(urls));
+
+  //       setValue("files", files?.concat(urls).slice(0, 6));
+  //     });
+
+  //     // resetField("files")
+  //   }
+  // };
+
+  const onMultipleChange = (e) => {
+    const bundle = Array.from(e.target.files);
+    const images = [];
+
+    if (bundle.length > 6) {
+      bundle.length = 6;
+    }
+
+    if (bundle) {
+      for (let i = 0; i < bundle.length; i++) {
+        console.log(bundle[i].name, bundle[i]?.size);
+        if (bundle[i]?.size > 2_000_000) {
+          setUploadFilesWarning("Image size can't be bigger than 2MB");
+        } else {
+          images.push(storeImage(bundle[i]));
+          setUploadFilesWarning("");
+        }
+      }
+
+      Promise.all(images).then((urls) => {
+        setUploadedImages((prevBundle) => prevBundle.concat(urls).slice(0, 6));
+      });
+    }
+  };
+
+  const handleRemoveImg = (index) => {
+    const filteredUploadedImages = uploadedImages.filter(
+      (_, idx) => idx !== index
+    );
+
+    setUploadedImages(filteredUploadedImages);
   };
 
   return (
     <>
       <h1 className={styles.title}>Create a Listing</h1>
 
-      <form className={styles.createFrom} onSubmit={formSubmitHandler}>
+      <form className={styles.createFrom} onSubmit={handleSubmit(onFormSubmit)}>
         <div className={styles.left}>
           <div className={styles.inputWrapper}>
             <FormInput
               placeholder="Name*"
               type="text"
               name="name"
-              onChange={changeInputHandler}
-              required
+              {...register("name")}
             />
+            {errors.name && (
+              <p className={styles.validationError}>{errors.name.message}</p>
+            )}
           </div>
-          <textarea
-            name="description"
-            placeholder="Description*"
-            className={styles.description}
-            onChange={changeInputHandler}
-            required
-          />
+
+          <div>
+            <textarea
+              name="description"
+              placeholder="Description*"
+              className={styles.description}
+              {...register("description")}
+            />
+            {errors.description && (
+              <p className={styles.validationError}>
+                {errors.description.message}
+              </p>
+            )}
+          </div>
+
           <div className={styles.inputWrapper}>
             <FormInput
+              ref={inputRef}
               placeholder="Address*"
               type="text"
               name="address"
-              onChange={changeInputHandler}
-              required
+              {...register("address")}
             />
+            {errors.address && (
+              <p className={styles.validationError}>{errors.address.message}</p>
+            )}
           </div>
 
           <div className={styles.optionsWrapper}>
             {checkOptions.map((option, index) => (
-              <Checkbox
-                onChange={(e) => changeInputHandler(e, index)}
-                checked={checkOptions[index].checked}
-                name={option.name}
-                id={option.name}
-                label={option.name}
-                key={option.name}
-              />
+              <div className={styles.checkboxContainer} key={index}>
+                <input
+                  {...register(option.name)}
+                  type="checkbox"
+                  name={option.name}
+                  id={option.name}
+                  label={option.name}
+                />
+
+                <label htmlFor={option.name}>
+                  {option.name}
+                  <p className={styles.checkmark}></p>
+                </label>
+              </div>
             ))}
           </div>
 
-          <select name="type" onChange={changeInputHandler} required>
-            <option disabled>Select the type (require)</option>
+          <select name="type" {...register("type")}>
+            <option disabled>Select the type</option>
             {options.map((option) => (
               <option key={option.id} value={option.value}>
                 {option.value}
@@ -85,23 +215,31 @@ const CreateListing = () => {
 
           <div className={styles.inputNumberWrapper}>
             <FormInput
-              onChange={changeInputHandler}
+              ref={inputRef}
+              {...register("bedrooms", { valueAsNumber: true })}
               name="bedrooms"
               type="number"
               min={0}
-              max={10}
+              max={50}
             />
             <p>Bedrooms*</p>
+            {errors.bedrooms && (
+              <p className={styles.validationError}>
+                {errors.bedrooms.message}
+              </p>
+            )}
           </div>
           <div className={styles.inputNumberWrapper}>
             <FormInput
-              onChange={changeInputHandler}
+              ref={inputRef}
+              {...register("price", { valueAsNumber: true })}
               name="price"
               type="number"
-              min={0}
-              max={10e6}
             />
-            <p>Price, $/month*</p>
+            <p>Price, USD *</p>
+            {errors.price && (
+              <p className={styles.validationError}>{errors.price.message}</p>
+            )}
           </div>
         </div>
 
@@ -110,7 +248,49 @@ const CreateListing = () => {
           <p>
             <span>images:</span> The first images will be the cover (max 6)
           </p>
-          <input type="file" />
+          <div className={styles.uploadImage}>
+            <input
+              {...register("files")}
+              type="file"
+              accept="image/*"
+              id="files"
+              name="files"
+              multiple
+              onChange={onMultipleChange}
+            />
+          </div>
+
+          {errors.files && <p>{errors.files.message}</p>}
+
+          {uploadFilesWarning ? <p>{uploadFilesWarning}</p> : null}
+
+          {/* UPLOADED IMAGES */}
+          {imgUploadLoading ? (
+            <div className={styles.loaderWrapper}>
+              <Loader width={100} height={30} radius={2} />
+            </div>
+          ) : (
+            <div className={styles.uploadedImagesWrapper}>
+              {uploadedImages?.length
+                ? uploadedImages.map((imageUrl, index) => (
+                    <div key={index}>
+                      <img
+                        src={imageUrl}
+                        alt=""
+                        width="75px"
+                        height="40px"
+                      />
+                      <button
+                        onClick={() => handleRemoveImg(index)}
+                        type="button"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))
+                : null}
+            </div>
+          )}
 
           <Button text="Create" type="submit" />
         </div>

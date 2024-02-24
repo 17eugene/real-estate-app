@@ -22,6 +22,13 @@
       position: relative;
     }
 
+    .validationError {
+      font-size: $smallTextSize;
+      color: $redColor;
+      margin-top: 0.25rem;
+      text-align: center;
+    }
+
     & input[type="text"] {
       margin-right: 0;
       width: 400px;
@@ -52,6 +59,12 @@
         cursor: auto;
       }
     }
+
+    & > .loaderWrapper {
+      margin: 0 auto;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
   }
 }
 
@@ -63,6 +76,7 @@ textarea {
   border-radius: $primaryBorderRadius;
 
   height: 8rem;
+  width: 100%;
   padding: 1rem;
 
   font-family: "Source Serif 4", sans-serif;
@@ -85,6 +99,79 @@ textarea {
   max-width: 400px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+
+  & > .checkboxContainer {
+    position: relative;
+    cursor: pointer;
+    padding-left: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-right: 1.5rem;
+    font-size: $regularTextSize;
+    text-transform: capitalize;
+
+    & > input {
+      position: absolute;
+
+      width: 0;
+      height: 0;
+      opacity: 0;
+      outline: none;
+      cursor: pointer;
+    }
+
+    & > label {
+      cursor: pointer;
+    }
+
+    & .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: $primaryBorderRadius;
+      background-color: #eee;
+      transition: all 0.15s linear;
+      overflow: hidden;
+      box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.3),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.3),
+        inset 2px 2px 6px rgba(126, 126, 126, 0.3),
+        inset 2px 2px 6px rgba(126, 126, 126, 0.3);
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 1px;
+        width: 5px;
+        height: 15px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+        display: none;
+      }
+    }
+
+    &:hover .checkmark {
+      box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.5),
+        inset -1px -1px 5px rgba(0, 0, 0, 0.5),
+        inset 2px 2px 6px rgba(126, 126, 126, 0.4),
+        inset 2px 2px 6px rgba(126, 126, 126, 0.4);
+    }
+
+    & > input:checked + label > .checkmark {
+      background-color: $blueColor;
+      box-shadow: none;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
 }
 
 select {
@@ -106,5 +193,75 @@ select {
   & > input[type="number"] {
     width: 120px;
     padding-right: 0.5rem;
+  }
+}
+
+.uploadImage {
+  // display: flex;
+  // gap: 1rem;
+  width: 100%;
+
+  // & > button {
+  //   height: 50px;
+  //   background-color: transparent;
+  //   border: 2px solid rgb(69, 225, 69);
+  //   border-radius: $primaryBorderRadius;
+  //   color: rgb(69, 225, 69);
+  //   font-size: $regularTextSize;
+  //   padding: 0.5rem 1rem;
+  //   cursor: pointer;
+  //   outline: none;
+  //   transition: box-shadow 0.15s linear;
+
+  //   &:hover,
+  //   &:focus {
+  //     box-shadow: 1px 0px 8px rgba(0, 0, 0, 0.2);
+  //   }
+
+  //   &:disabled {
+  //     background-color: transparent;
+  //     border: 2px solid rgba(200, 202, 202, 0.6);
+  //     color: rgba(200, 202, 202, 0.6);
+  //     cursor: auto;
+  //     box-shadow: none;
+  //   }
+  // }
+
+  & > input {
+    height: 50px;
+  }
+
+  & + p {
+    margin-top: 1rem;
+    font-size: $smallTextSize;
+    color: $redColor;
+    text-align: center;
+  }
+}
+
+.uploadedImagesWrapper {
+  margin-top: 1rem;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid $lightGrey;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+
+    & > img {
+      display: block;
+      object-fit: cover;
+    }
+
+    & > button {
+      border: none;
+      outline: none;
+      background-color: transparent;
+      text-transform: uppercase;
+      font-size: $smallTextSize;
+      cursor: pointer;
+    }
   }
 }
