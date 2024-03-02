@@ -13,6 +13,7 @@ import Button from "../../components/ui/Button/Button";
 import Avatar from "../../components/ui/Avatar/Avatar";
 import Backdrop from "../../components/ui/Backdrop/Backdrop";
 import PopupWindow from "../../components/PopupWindow/PopupWindow";
+import UserListings from "../../components/UserListings/UserListings";
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
@@ -21,13 +22,14 @@ const Profile = () => {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [imgUploadloading, setImgUploadLoading] = useState(false);
   const [isOpenedConfirmation, setIsOpenedConfirmation] = useState(false);
+  const [isOpenedList, setIsOpenedList] = useState(false);
 
   const avatarInputRef = useRef(null);
+  const listingsListRef = useRef(null);
   const dispatch = useDispatch();
   const { id, username, email, avatar } = useSelector(
     (state) => state?.user?.userData
   );
-  const { loading } = useSelector((state) => state?.user);
 
   useEffect(() => {
     const handleFileUpload = (file) => {
@@ -97,6 +99,10 @@ const Profile = () => {
     dispatch(userOperations.signout());
   };
 
+  const onViewListingsClick = () => {
+    setIsOpenedList(!isOpenedList);
+  };
+
   return (
     <>
       <Backdrop
@@ -156,14 +162,26 @@ const Profile = () => {
         </div>
         <div className={styles.buttonsWrapper}>
           <Button type="button" text="edit" onClick={onEditHanleClick} />
-          <Button
-            loading={isOpenedEditForm && loading ? false : loading}
-            type="button"
-            text="sign out"
-            onClick={onSignoutClick}
-          />
+          <Button type="button" text="sign out" onClick={onSignoutClick} />
         </div>
         <p onClick={onDeleteAccountClick}>Delete account</p>
+      </div>
+      <div className={styles.listingListBtn} onClick={onViewListingsClick}>
+        <p>{isOpenedList ? "Hide" : "View"} published listings</p>
+        <span
+          className={
+            isOpenedList
+              ? `${styles.arrow} ${styles.active}`
+              : `${styles.arrow}`
+          }
+        ></span>
+      </div>
+
+      <div className={styles.userListingsWrapper}>
+        <UserListings
+          listingsListRef={listingsListRef}
+          isOpenedList={isOpenedList}
+        />
       </div>
     </>
   );

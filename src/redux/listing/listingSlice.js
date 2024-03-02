@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { listingOperations } from "./listing-operations";
 
 const initialState = {
-  listing: null,
+  listingData: [],
   loading: false,
   error: null,
 };
@@ -16,12 +16,13 @@ const listingSlice = createSlice({
         state.loading = true;
       })
       .addCase(listingOperations.create.fulfilled, (state, action) => {
-        console.log(action);
+        state.listingData = [...state.listingData, action.payload.data];
         state.loading = false;
+        state.error = null;
       })
       .addCase(listingOperations.create.rejected, (state, action) => {
         state.loading = false;
-        console.log(action);
+        state.error = action.payload.message;
       });
   },
 });

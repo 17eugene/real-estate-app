@@ -1,5 +1,5 @@
-import { useState, useRef, Children } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { listingOperations } from "../../redux/listing/listing-operations";
 import { useForm } from "react-hook-form";
 import { listingSchema } from "../../utils/formValidationSchema";
@@ -23,10 +23,10 @@ const CreateListing = () => {
   const [imgUploadLoading, setImgUploadLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
 
   const {
     register,
-    watch,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -41,17 +41,15 @@ const CreateListing = () => {
       offer: false,
       bedrooms: 1,
       price: null,
-      files: [],
+      photos: [],
     },
   });
 
   const inputRef = useRef(null);
-  // const selectedImages = Array.from(watch("files"));
 
   const onFormSubmit = (data) => {
-    data.files = uploadedImages;
-    console.log(data);
-    // dispatch(listingOperations.create(data));
+    data.photos = uploadedImages;
+    dispatch(listingOperations.create(data));
   };
 
   const storeImage = async (file) => {
@@ -83,29 +81,6 @@ const CreateListing = () => {
       );
     });
   };
-
-  // const uploadImagesSubmit = () => {
-  //   if (selectedImages.length > 0) {
-  //     const images = [];
-
-  //     for (let i = 0; i < selectedImages.length; i++) {
-  //       images.push(storeImage(selectedImages[i]));
-  //     }
-
-  //     Promise.all(images).then((urls) => {
-  //       if (urls.length > 6) {
-  //         urls.length = 6;
-  //         setUploadFilesWarning("Maximum 6 photos can be added");
-  //       }
-
-  //       setFiles(files?.concat(urls));
-
-  //       setValue("files", files?.concat(urls).slice(0, 6));
-  //     });
-
-  //     // resetField("files")
-  //   }
-  // };
 
   const onMultipleChange = (e) => {
     const bundle = Array.from(e.target.files);
@@ -250,17 +225,17 @@ const CreateListing = () => {
           </p>
           <div className={styles.uploadImage}>
             <input
-              {...register("files")}
+              {...register("photos")}
               type="file"
               accept="image/*"
-              id="files"
-              name="files"
+              id="photos"
+              name="photos"
               multiple
               onChange={onMultipleChange}
             />
           </div>
 
-          {errors.files && <p>{errors.files.message}</p>}
+          {errors.photos && <p>{errors.photos.message}</p>}
 
           {uploadFilesWarning ? <p>{uploadFilesWarning}</p> : null}
 
@@ -274,12 +249,7 @@ const CreateListing = () => {
               {uploadedImages?.length
                 ? uploadedImages.map((imageUrl, index) => (
                     <div key={index}>
-                      <img
-                        src={imageUrl}
-                        alt=""
-                        width="75px"
-                        height="40px"
-                      />
+                      <img src={imageUrl} alt="" width="75px" height="40px" />
                       <button
                         onClick={() => handleRemoveImg(index)}
                         type="button"
@@ -292,7 +262,7 @@ const CreateListing = () => {
             </div>
           )}
 
-          <Button text="Create" type="submit" />
+          <Button text="Create" type="submit" loading={loading} />
         </div>
       </form>
     </>

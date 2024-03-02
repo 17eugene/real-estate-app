@@ -1,0 +1,14 @@
+@import "../../variables.scss";
+
+.userListingsWrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: all 0.35s linear;
+  opacity: 0;
+
+  &.opened {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}

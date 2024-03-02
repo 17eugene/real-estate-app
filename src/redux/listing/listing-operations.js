@@ -12,8 +12,38 @@ const create = createAsyncThunk(
       body: JSON.stringify(credentials),
     });
 
-    console.log(response);
+    if (response.status !== 200) {
+      const data = rejectWithValue(await response.json());
+      return data;
+    }
+
+    const data = await response.json();
+    return data;
   }
 );
 
-export const listingOperations = { create };
+const getUserListings = createAsyncThunk(
+  "listing/getUserListings",
+  async (id, { rejectWithValue }) => {
+    const response = await fetch(
+      `http://localhost:2222/api/listing/listings/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+
+    if (response.status !== 201) {
+      const data = rejectWithValue(await response.json());
+      return data;
+    }
+
+    const data = await response.json();
+    return data;
+  }
+);
+
+export const listingOperations = { create, getUserListings };

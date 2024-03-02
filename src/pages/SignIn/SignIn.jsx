@@ -6,8 +6,7 @@ import Button from "../../components/ui/Button/Button";
 import FormInput from "../../components/ui/FormInput/FormInput";
 import OAuth from "../../components/OAuth/OAuth";
 import { MdEmail } from "react-icons/md";
-import { IoEye } from "react-icons/io5";
-import { IoEyeOff } from "react-icons/io5";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 import styles from "../SignUp/SignUp.module.scss";
 
 const SignIn = () => {
@@ -30,8 +29,7 @@ const SignIn = () => {
     e.preventDefault();
     const result = await dispatch(userOperations.signin(formValue));
 
-    console.log(result);
-    if (result.type.includes("fulfilled")) {
+    if (result?.payload?.code === 200) {
       e.target.reset();
       navigate("/", { replace: true });
     }

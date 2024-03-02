@@ -1,0 +1,52 @@
+@import "../../variables.scss";
+
+.cardsContainer {
+  display: flex;
+  gap: 0.5rem;
+  min-height: 0;
+
+  & > div {
+    padding: 2rem 1rem 1rem 1rem;
+    transition: all 0.2s linear;
+    position: relative;
+
+    &:hover {
+      background-color: $lightBlueColor;
+      box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+
+      & .cardMenuIcon {
+        opacity: 1;
+      }
+    }
+
+    & > img {
+      margin-bottom: 0.5rem;
+    }
+
+    & > p:nth-of-type(1) {
+      text-transform: capitalize;
+    }
+
+    & > p:last-of-type {
+      font-size: $smallTextSize;
+    }
+
+    & > p:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.cardMenuIcon {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  width: 20px;
+  opacity: 0;
+  transition: all 0.2s linear;
+
+  &:hover {
+    transform: scale(1.25);
+  }
+}
