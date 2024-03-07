@@ -4,15 +4,25 @@ import { converDateFormat } from "../../utils/convertDateFormat";
 import { BsThreeDots } from "react-icons/bs";
 import styles from "./UserListingCard.module.scss";
 
-const UserListingCard = ({ userListings, isOpenedList }) => {
-  const [selectedCard, setSelectedCard] = useState(null);
+const UserListingCard = ({
+  userListings,
+  isOpenedList,
+  selectedCard,
+  setSelectedCard,
+}) => {
+  const [isOpenedDeleteConfirmation, setIsOpenedDeleteConfirmation] =
+    useState(false);
 
-  const openMenuClickHandle = (listingId) => {
+  const openCardMenuHandler = (listingId) => {
     setSelectedCard(listingId);
   };
 
   const closeCardMenuHandler = () => {
     setSelectedCard(null);
+  };
+
+  const openCardDeleteConfirmation = () => {
+    setIsOpenedDeleteConfirmation(!isOpenedDeleteConfirmation);
   };
 
   return (
@@ -24,10 +34,10 @@ const UserListingCard = ({ userListings, isOpenedList }) => {
                 <div
                   className={styles.cardMenuIcon}
                   onClick={() => {
-                    openMenuClickHandle(_id);
+                    openCardMenuHandler(_id);
                   }}
                 >
-                  <BsThreeDots />
+                  {!isOpenedDeleteConfirmation ? <BsThreeDots /> : null}
                 </div>
                 <img width={150} height={100} src={photos[0]} alt={name} />
                 <p>{address}</p>
@@ -39,6 +49,8 @@ const UserListingCard = ({ userListings, isOpenedList }) => {
                   selectedCard={selectedCard}
                   listingId={_id}
                   closeCardMenuHandler={closeCardMenuHandler}
+                  openCardDeleteConfirmation={openCardDeleteConfirmation}
+                  isOpenedDeleteConfirmation={isOpenedDeleteConfirmation}
                 />
               </div>
             )

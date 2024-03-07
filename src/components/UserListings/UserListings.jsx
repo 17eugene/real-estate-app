@@ -1,19 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Container from "../Container/Container";
-import { useDispatch, useSelector } from "react-redux";
-import { listingOperations } from "../../redux/listing/listing-operations";
+import { useSelector } from "react-redux";
 import styles from "./UserListings.module.scss";
 import UserListingCard from "../UserListingCard/UserListingCard";
 
 const UserListings = ({ isOpenedList, listingsListRef }) => {
-  const dispatch = useDispatch();
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [userListings, setUserListings] = useState([]);
 
   const { id } = useSelector((state) => state?.user?.userData);
-  const { userListings } = useSelector((state) => state?.user);
+  const { listingData } = useSelector((state) => state.listing);
 
   useEffect(() => {
-    dispatch(listingOperations.getUserListings(id));
-  }, [dispatch, id]);
+    const filteredByUserId = listingData?.filter(
+      (listing) => listing.owner === id
+    );
+    setUserListings(filteredByUserId);
+  }, [listingData, id, listingData.length]);
 
   return (
     <Container>
@@ -25,10 +29,21 @@ const UserListings = ({ isOpenedList, listingsListRef }) => {
             : `${styles.userListingsWrapper}`
         }
       >
-        <UserListingCard
-          userListings={userListings}
-          isOpenedList={isOpenedList}
-        />
+        {userListings.length > 0 ? (
+          <UserListingCard
+            userListings={userListings}
+            isOpenedList={isOpenedList}
+            selectedCard={selectedCard}
+            setSelectedCard={setSelectedCard}
+          />
+        ) : (
+          <p>
+            You haven't published any listing yet.
+            <span>
+              <Link to="/create"> Create</Link>
+            </span>
+          </p>
+        )}
       </div>
     </Container>
   );

@@ -220,7 +220,7 @@ const CreateListing = () => {
 
         {/* right block */}
         <div className={styles.right}>
-          <p>
+          <p className={styles.imgs}>
             <span>images:</span> The first images will be the cover (max 6)
           </p>
           <div className={styles.uploadImage}>

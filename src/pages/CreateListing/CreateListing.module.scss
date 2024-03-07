@@ -41,13 +41,13 @@
     flex-direction: column;
 
     & > p {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     & > button {
       background-color: $primaryButtonColor;
       color: #fff;
-      margin-top: 1rem;
+      flex-grow: 0;
 
       &:hover,
       &:focus {
@@ -196,39 +196,19 @@ select {
   }
 }
 
+.right > p {
+  display: block;
+  margin-bottom: 0px;
+}
+
 .uploadImage {
-  // display: flex;
-  // gap: 1rem;
   width: 100%;
 
-  // & > button {
-  //   height: 50px;
-  //   background-color: transparent;
-  //   border: 2px solid rgb(69, 225, 69);
-  //   border-radius: $primaryBorderRadius;
-  //   color: rgb(69, 225, 69);
-  //   font-size: $regularTextSize;
-  //   padding: 0.5rem 1rem;
-  //   cursor: pointer;
-  //   outline: none;
-  //   transition: box-shadow 0.15s linear;
-
-  //   &:hover,
-  //   &:focus {
-  //     box-shadow: 1px 0px 8px rgba(0, 0, 0, 0.2);
-  //   }
-
-  //   &:disabled {
-  //     background-color: transparent;
-  //     border: 2px solid rgba(200, 202, 202, 0.6);
-  //     color: rgba(200, 202, 202, 0.6);
-  //     cursor: auto;
-  //     box-shadow: none;
-  //   }
-  // }
-
   & > input {
-    height: 50px;
+    padding: 0;
+    outline: none;
+    border: none;
+    width: 350px;
   }
 
   & + p {

@@ -1,7 +1,7 @@
 @import "../../../variables.scss";
 
 .button {
-  // flex-grow: 1;
+  flex-grow: 1;
   padding: 10px;
   outline: none;
   border: none;
@@ -10,7 +10,6 @@
   font-size: $regularTextSize;
   text-transform: uppercase;
   border-radius: $primaryBorderRadius;
-  // color: $lightBlueColor;
   cursor: pointer;
   transition: all 0.15s linear;
 }

@@ -1,5 +1,9 @@
-import React from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+/*---------------------*/
+import { listingOperations } from "./redux/listing/listing-operations";
+/*---------------------*/
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import SignIn from "./pages/SignIn/SignIn";
@@ -10,6 +14,11 @@ import Header from "./components/Header/Header";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listingOperations.getAll());
+  }, [dispatch]);
   return (
     <div>
       <Header />

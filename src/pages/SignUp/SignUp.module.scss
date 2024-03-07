@@ -24,16 +24,12 @@
     position: relative;
   }
 
-  & > div input {
-    @extend %input;
+  div input::placeholder {
+    opacity: 0.35;
+  }
 
-    &::placeholder {
-      opacity: 0.35;
-    }
-
-    &:focus {
-      outline: 1px solid $blueColor;
-    }
+  &:focus {
+    outline: 1px solid $blueColor;
   }
 
   & > div .icon {
@@ -43,10 +39,6 @@
     transform: translateY(-50%);
     width: 25px;
     height: 25px;
-  }
-
-  & > button {
-    @extend %button;
   }
 
   & > button:nth-of-type(1) {

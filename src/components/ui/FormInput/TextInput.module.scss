@@ -2,12 +2,10 @@
 
 input {
   height: 40px;
-  // width: 400px;
-  // padding: 0.25rem 3rem 0.25rem 1rem;
+  width: 400px;
+  padding: 0.25rem 3rem 0.25rem 1rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  padding-left: 1rem;
-  // padding-right: 3rem;
   border-radius: $primaryBorderRadius;
   outline: none;
   border: 1px solid $lightGrey;

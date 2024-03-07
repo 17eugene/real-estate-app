@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+/*------------------------*/
 import { userOperations } from "../../redux/user/user-operations";
+/*------------------------*/
 import {
   getDownloadURL,
   getStorage,
@@ -8,12 +10,14 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../../firebase";
+/*------------------------*/
 import Loader from "../../components/ui/Loader/Loader";
 import Button from "../../components/ui/Button/Button";
 import Avatar from "../../components/ui/Avatar/Avatar";
 import Backdrop from "../../components/ui/Backdrop/Backdrop";
 import PopupWindow from "../../components/PopupWindow/PopupWindow";
 import UserListings from "../../components/UserListings/UserListings";
+/*------------------------*/
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
