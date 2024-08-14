@@ -1,0 +1,66 @@
+@import "../../variables.scss";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  flex-basis: 300px;
+  background-color: #fff;
+  padding: 1.5rem 2rem 3.5rem 2rem;
+  border-radius: $primaryBorderRadius;
+  gap: 1.5rem;
+  border: 1px solid #dccdcd;
+  box-shadow: 2px 1px 15px rgba(0, 0, 0, 0.3);
+
+  & .cardInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    & h3 {
+      font-size: $secondaryTitleTextSize;
+    }
+
+    & p {
+      letter-spacing: 1px;
+      margin-bottom: 2rem;
+      text-align: center;
+      line-height: 1.5rem;
+    }
+
+    & a {
+      padding: 1rem 2rem;
+      border: 2px solid $lightBlueColor;
+      border-radius: 15px;
+      color: $blueColor;
+      transition: all 0.2s linear;
+
+      &:hover,
+      &:focus {
+        background-color: $lightGrey;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .card {
+    width: 100%;
+    gap: 1rem;
+    flex-direction: row;
+    padding: 1rem 1rem;
+    flex-basis: auto;
+
+    & .cardInfo {
+      gap: 0;
+      align-items: flex-start;
+
+      & p {
+        margin-bottom: 1rem;
+        text-align: left;
+      }
+    }
+  }
+}

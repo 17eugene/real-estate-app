@@ -1,0 +1,143 @@
+@import "../../variables.scss";
+
+.hero {
+  height: 500px;
+  background-image: url(https://cdn.pixabay.com/photo/2015/02/14/14/50/ruin-636385_1280.jpg);
+  background-color: #eee;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0px -350px;
+  position: relative;
+}
+
+.heroContent {
+  position: absolute;
+  top: 130px;
+  left: 100px;
+  width: 500px;
+}
+
+.title {
+  font-size: 4rem;
+  color: $inputColor;
+  margin-bottom: 1.5rem;
+}
+
+.searchForm {
+  background-color: $inputColor;
+  width: 450px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+
+  & > input {
+    outline: none;
+    border: none;
+    width: 390px;
+    height: 60px;
+    font-size: $secondaryTitleTextSize;
+    background-color: $inputColor;
+    padding: 7px 15px;
+  }
+
+  & > .icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+section {
+  padding: 2rem 0rem;
+  background-color: #fff;
+
+  & .sectionContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    & h2 {
+      font-size: $secondaryTitleTextSize;
+    }
+
+    & p {
+      display: block;
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+    }
+  }
+
+  & .banner {
+    width: 350px;
+    height: 280px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(https://www.zillowstatic.com/s3/web-platform/sub-apps/hops-homepage/hops-homepage.prod.master.6391185.2f1e5238/web/a03d28d86d858234534306b63a6de3b2.jpg);
+  }
+
+  &:nth-of-type(2) {
+    background-color: inherit;
+
+    & .sectionContent {
+      gap: 2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .hero {
+    background-position: 0px -190px;
+  }
+
+  .heroContent {
+    top: 200px;
+  }
+
+  .title {
+    font-size: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .hero {
+    background-position: 0px -80px;
+  }
+
+  .heroContent {
+    top: 230px;
+    left: 70px;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .searchForm {
+    width: 350px;
+
+    & > input {
+      width: 290px;
+      height: 60px;
+    }
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .hero {
+    background-position: 0px 0px;
+  }
+
+  .heroContent {
+    top: 250px;
+    left: 40px;
+    width: 380px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  section:nth-of-type(2) .sectionContent {
+    flex-direction: column;
+  }
+}

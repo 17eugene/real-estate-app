@@ -1,0 +1,142 @@
+@import "../../variables.scss";
+
+.header {
+  position: relative;
+  padding: 15px 0;
+  background-color: $lightBlueColor;
+  box-shadow: 0px 2px 6px rgba(24, 24, 24, 0.75),
+    0px 2px 15px rgba(247, 247, 229, 0.8);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  margin-right: 6rem;
+
+  & > p:nth-child(1) {
+    color: $blueColor;
+  }
+
+  & > p:nth-child(2) {
+    color: $redColor;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .searchForm {
+    width: auto;
+    background-color: $lightBlueColor;
+
+    & > input {
+      display: none;
+    }
+  }
+}
+
+// NAVIGATION
+
+.navigation {
+  list-style: none;
+  display: flex;
+  gap: 0.75rem;
+  text-transform: capitalize;
+  font-size: $regularTextSize;
+  padding: 0;
+
+  & li {
+    padding: 0.8rem 1rem;
+
+    & a {
+      color: #000;
+    }
+
+    & .activeNavLink {
+      font-weight: 600;
+      color: $redColor;
+    }
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+    }
+  }
+
+  & .signin {
+    background-color: $blueColor;
+    border-radius: $primaryBorderRadius;
+    transition: all 0.15s linear;
+
+    &:hover,
+    &:focus {
+      box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.45);
+    }
+  }
+}
+
+a {
+  color: #000;
+}
+
+.burgerMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+
+  & span:nth-child(1) {
+    width: 35px;
+    height: 4px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+    transition: all 0.35s linear;
+  }
+  & span:nth-child(2) {
+    width: 23px;
+    height: 4px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+    transition: all 0.27s linear;
+  }
+  & span:nth-child(3) {
+    width: 12px;
+    height: 4px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+    transition: all 0.4s linear;
+  }
+}
+
+.burgerMenu.active {
+  & span:nth-child(1) {
+    transform: translateY(200%) rotate(-45deg);
+  }
+  & span:nth-child(2) {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+  & span:nth-child(3) {
+    transform: translateY(-250%) rotate(45deg);
+    width: 35px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .navigation {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1199px) {
+  .burgerMenu {
+    display: none;
+  }
+}

@@ -1,0 +1,105 @@
+@import "../../variables.scss";
+
+.swiper {
+  width: 600px;
+  height: 300px;
+
+  & .swiperPagination {
+    width: 100%;
+  }
+}
+
+.listingImage {
+  object-fit: cover;
+  object-position: 50% 60%;
+  margin-bottom: 3rem;
+  cursor: pointer;
+}
+
+.listingDetailsWrapper > p:nth-child(1) {
+  text-transform: capitalize;
+  font-size: $secondaryTitleTextSize;
+  font-weight: 900;
+  font-family: "Source Serif 4";
+  margin-bottom: 2rem;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  & > svg {
+    color: $redColor;
+  }
+
+  & > p {
+    text-transform: capitalize;
+    font-family: "Source Serif 4";
+    font-size: $regularTextSize;
+  }
+
+  & + div {
+    margin-bottom: 2.5rem;
+
+    & > span {
+      background-color: $lightBlueColor;
+      border-radius: $primaryBorderRadius;
+      padding: 0.25rem 0.5rem;
+      font-family: "Source Serif 4";
+      font-size: $regularTextSize;
+      font-weight: 700;
+    }
+  }
+}
+
+.listingDetailsWrapper > p:nth-of-type(2) {
+  font-size: $regularTextSize;
+  font-family: "Source Serif 4";
+  margin-bottom: 2rem;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.optionsWrapper {
+  display: flex;
+  align-items: center;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+    position: relative;
+
+    &:not(:last-of-type):after {
+      position: absolute;
+      content: "";
+      right: 0;
+      top: 0;
+      width: 2px;
+      height: 1.5rem;
+      background-color: $lightGrey;
+    }
+
+    &:not(:nth-child(1)) {
+      padding-left: 1rem;
+    }
+
+    & .optionIcon {
+      color: #55777e;
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-right: 0.5rem;
+    }
+
+    & p {
+      font-family: "Source Serif 4";
+      text-transform: capitalize;
+      font-weight: 600;
+      font-size: $regularTextSize;
+    }
+  }
+}

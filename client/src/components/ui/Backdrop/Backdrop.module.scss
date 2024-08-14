@@ -1,0 +1,22 @@
+@import "../../../variables.scss";
+
+.backdrop {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  transition: opacity 0.15s linear;
+  z-index: 10;
+
+  &.active {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 1;
+  }
+}

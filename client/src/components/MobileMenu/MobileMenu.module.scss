@@ -1,0 +1,62 @@
+@import "../../variables.scss";
+
+.navMenu {
+  display: none;
+  padding: 20px 0px;
+
+  & .email {
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .navMenu {
+    display: block;
+    position: absolute;
+    width: 300px;
+    height: fit-content;
+    background-color: $lightBlueColor;
+    top: 5.5rem;
+    right: 0.25rem;
+    border-radius: $primaryBorderRadius;
+    opacity: 0;
+    transform: translateX(120%);
+    visibility: hidden;
+    transition: all 0.25s linear;
+
+    & > .navMenu__list {
+      margin-top: 1rem;
+
+      & > li {
+        border-bottom: 1px solid $lightGrey;
+        text-transform: uppercase;
+        font-size: $secondaryTitleTextSize;
+        transition: all 0.15s linear;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+          background-color: $lightGrey;
+        }
+      }
+
+      & > li a {
+        color: #000;
+        display: block;
+        width: 100%;
+        padding: 1.25rem;
+      }
+    }
+  }
+
+  .navMenu.active {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+    box-shadow: 0px 2px 6px rgba(24, 24, 24, 0.75),
+      0px 2px 15px rgba(247, 247, 229, 0.8);
+  }
+}

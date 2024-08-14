@@ -1,0 +1,28 @@
+@import "../../../variables.scss";
+
+.filterWindow {
+  border-radius: $primaryBorderRadius;
+  min-width: 300px;
+  max-height: 450px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.75);
+  position: absolute;
+  background-color: rgb(247, 249, 247);
+
+  & .header {
+    background-color: $lightGrey;
+    padding: 1rem;
+
+    & p::first-letter {
+      text-transform: capitalize;
+    }
+
+    & + div {
+      padding: 1rem;
+    }
+  }
+
+  & .btnContainer {
+    display: flex;
+    padding: 1rem;
+  }
+}

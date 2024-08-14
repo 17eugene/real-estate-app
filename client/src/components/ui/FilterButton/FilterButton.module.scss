@@ -1,0 +1,64 @@
+@import "../../../variables.scss";
+
+.filterBtn {
+  padding: 0.75rem 2.5rem 0.75rem 1.25rem;
+  border: 1px solid #a3baba;
+  border-radius: $primaryBorderRadius;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background-color: $lightGrey;
+  }
+
+  &.active {
+    background-color: $lightGrey;
+  }
+
+  & p {
+    text-transform: capitalize;
+  }
+}
+
+button {
+  background-color: $blueColor;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-weight: 700;
+  font-size: $regularTextSize;
+  border-radius: $primaryBorderRadius;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background-color: transparent;
+    color: $blueColor;
+    outline: 1px solid #a3baba;
+  }
+}
+
+.arrow {
+  content: "";
+  display: block;
+  width: 0.55rem;
+  height: 0.5rem;
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+  rotate: -45deg;
+  position: absolute;
+  right: 1rem;
+
+  &.active {
+    top: 1.25rem;
+    rotate: 135deg;
+    width: 0.5rem;
+  }
+}

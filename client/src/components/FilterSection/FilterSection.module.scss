@@ -1,0 +1,17 @@
+@import "../../variables.scss";
+
+.filterSection {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid #a3baba;
+  padding: 1rem 4rem;
+
+  & .filterBlock {
+    position: relative;
+  }
+}
+
+.btnContainer {
+  width: 100px;
+  display: flex;
+}

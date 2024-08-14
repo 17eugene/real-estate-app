@@ -1,0 +1,247 @@
+@import "../../variables.scss";
+
+.title {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.createFrom {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 90%;
+  margin: 0 auto;
+
+  & .left {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    & .inputWrapper {
+      position: relative;
+    }
+
+    .validationError {
+      font-size: $smallTextSize;
+      color: $redColor;
+      margin-top: 0.25rem;
+      text-align: center;
+    }
+
+    & input[type="text"] {
+      margin-right: 0;
+      width: 400px;
+      padding-right: 2rem;
+    }
+  }
+
+  & .right {
+    display: flex;
+    flex-direction: column;
+
+    & > p {
+      margin-bottom: 1.5rem;
+    }
+
+    & > button {
+      background-color: $primaryButtonColor;
+      color: #fff;
+      flex-grow: 0;
+
+      &:hover,
+      &:focus {
+        background-color: rgba(125, 125, 250, 0.9);
+      }
+
+      &:disabled {
+        background-color: lightgrey;
+        cursor: auto;
+      }
+    }
+
+    & > .loaderWrapper {
+      margin: 0 auto;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+}
+
+textarea {
+  resize: none;
+
+  outline: none;
+  border: 1px solid $lightGrey;
+  border-radius: $primaryBorderRadius;
+
+  height: 8rem;
+  width: 100%;
+  padding: 1rem;
+
+  font-family: "Source Serif 4", sans-serif;
+  font-size: $regularTextSize;
+  color: #000;
+
+  &::placeholder {
+    color: #000;
+    opacity: 0.35;
+  }
+
+  &:focus {
+    outline: 1px solid $blueColor;
+  }
+}
+
+.optionsWrapper {
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  & > .checkboxContainer {
+    position: relative;
+    cursor: pointer;
+    padding-left: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-right: 1.5rem;
+    font-size: $regularTextSize;
+    text-transform: capitalize;
+
+    & > input {
+      position: absolute;
+
+      width: 0;
+      height: 0;
+      opacity: 0;
+      outline: none;
+      cursor: pointer;
+    }
+
+    & > label {
+      cursor: pointer;
+    }
+
+    & .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: $primaryBorderRadius;
+      background-color: #eee;
+      transition: all 0.15s linear;
+      overflow: hidden;
+      box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.3),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.3),
+        inset 2px 2px 6px rgba(126, 126, 126, 0.3),
+        inset 2px 2px 6px rgba(126, 126, 126, 0.3);
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 1px;
+        width: 5px;
+        height: 15px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+        display: none;
+      }
+    }
+
+    &:hover .checkmark {
+      box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.5),
+        inset -1px -1px 5px rgba(0, 0, 0, 0.5),
+        inset 2px 2px 6px rgba(126, 126, 126, 0.4),
+        inset 2px 2px 6px rgba(126, 126, 126, 0.4);
+    }
+
+    & > input:checked + label > .checkmark {
+      background-color: $blueColor;
+      box-shadow: none;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
+}
+
+select {
+  outline: none;
+  border: 1px solid $lightGrey;
+  border-radius: $primaryBorderRadius;
+  height: 40px;
+  font-family: "Oswald", sans-serif;
+  font-size: $regularTextSize;
+  padding-left: 0.5rem;
+}
+
+.inputNumberWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  & > input[type="number"] {
+    width: 120px;
+    padding-right: 0.5rem;
+  }
+}
+
+.right > p {
+  display: block;
+  margin-bottom: 0px;
+}
+
+.uploadImage {
+  width: 100%;
+
+  & > input {
+    padding: 0;
+    outline: none;
+    border: none;
+    width: 350px;
+  }
+
+  & + p {
+    margin-top: 1rem;
+    font-size: $smallTextSize;
+    color: $redColor;
+    text-align: center;
+  }
+}
+
+.uploadedImagesWrapper {
+  margin-top: 1rem;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid $lightGrey;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+
+    & > img {
+      display: block;
+      object-fit: cover;
+    }
+
+    & > button {
+      border: none;
+      outline: none;
+      background-color: transparent;
+      text-transform: uppercase;
+      font-size: $smallTextSize;
+      cursor: pointer;
+    }
+  }
+}

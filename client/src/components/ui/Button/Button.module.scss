@@ -1,0 +1,15 @@
+@import "../../../variables.scss";
+
+.button {
+  flex-grow: 1;
+  padding: 10px;
+  outline: none;
+  border: none;
+  font-weight: 400;
+  font-family: "Oswald";
+  font-size: $regularTextSize;
+  text-transform: uppercase;
+  border-radius: $primaryBorderRadius;
+  cursor: pointer;
+  transition: all 0.15s linear;
+}
