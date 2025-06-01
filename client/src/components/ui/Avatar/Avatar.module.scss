@@ -1,7 +1,6 @@
-.avatarWrapper {
+.avatarImg {
   border-radius: 30%;
   overflow: hidden;
   cursor: pointer;
-  width: fit-content;
-  margin: 0 auto;
+  object-fit: cover;
 }

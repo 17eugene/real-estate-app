@@ -1,63 +1,47 @@
-import { useState } from "react";
-import ListingCardMenu from "../ui/ListingCardMenu/ListingCardMenu";
+import { useSelector } from "react-redux";
+import Loader from "../ui/Loader/Loader";
 import { converDateFormat } from "../../utils/convertDateFormat";
 import { BsThreeDots } from "react-icons/bs";
 import styles from "./UserListingCard.module.scss";
 
 const UserListingCard = ({
-  userListings,
-  isOpenedList,
-  selectedCard,
-  setSelectedCard,
+  listing,
+  children,
+  openListingMenu,
+  isOpenedSidebar,
 }) => {
-  const [isOpenedDeleteConfirmation, setIsOpenedDeleteConfirmation] =
-    useState(false);
-
-  const openCardMenuHandler = (listingId) => {
-    setSelectedCard(listingId);
-  };
-
-  const closeCardMenuHandler = () => {
-    setSelectedCard(null);
-  };
-
-  const openCardDeleteConfirmation = () => {
-    setIsOpenedDeleteConfirmation(!isOpenedDeleteConfirmation);
-  };
+  const { loading } = useSelector((state) => state?.listing);
 
   return (
-    <div className={styles.cardsContainer}>
-      {userListings?.length
-        ? userListings.map(
-            ({ _id, name, address, photos, createdAt, price }) => (
-              <div key={_id}>
-                <div
-                  className={styles.cardMenuIcon}
-                  onClick={() => {
-                    openCardMenuHandler(_id);
-                  }}
-                >
-                  {!isOpenedDeleteConfirmation ? <BsThreeDots /> : null}
-                </div>
-                <img width={150} height={100} src={photos[0]} alt={name} />
-                <p>{address}</p>
-                <p>{price} $</p>
-                <p>{converDateFormat(createdAt)}</p>
+    <>
+      {!loading ? (
+        <div className={styles.userCard}>
+          {children}
 
-                <ListingCardMenu
-                  isOpenedList={isOpenedList}
-                  selectedCard={selectedCard}
-                  listingId={_id}
-                  closeCardMenuHandler={closeCardMenuHandler}
-                  openCardDeleteConfirmation={openCardDeleteConfirmation}
-                  isOpenedDeleteConfirmation={isOpenedDeleteConfirmation}
-                  setIOpenedDeleteConfirmation={setIsOpenedDeleteConfirmation}
-                />
-              </div>
-            )
-          )
-        : null}
-    </div>
+          {!isOpenedSidebar ? (
+            <div
+              className={styles.cardMenuIcon}
+              onClick={() => {
+                openListingMenu(listing._id);
+              }}
+            >
+              <BsThreeDots />
+            </div>
+          ) : null}
+
+          <img src={listing.photos[0].url} alt={listing.name} />
+          <div className={styles.cardContent}>
+            <p>
+              {listing.settlement}, {listing.street}, {listing.houseNumber}
+            </p>
+            <span>${listing.price}</span>
+            <span>{converDateFormat(listing.updatedAt)}</span>
+          </div>
+        </div>
+      ) : (
+        <Loader width={90} height={20} radius={9} />
+      )}
+    </>
   );
 };
 

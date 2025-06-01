@@ -3,32 +3,60 @@
 .navMenu {
   display: none;
   padding: 20px 0px;
+  position: relative;
 
-  & .email {
+  & > .closeBtn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgba($color: #edf3f4, $alpha: 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s linear;
+
+    &:hover,
+    &:focus {
+      transform: scale(1.15);
+      background-color: rgba($color: #edf3f4, $alpha: 1);
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  & > img {
+    margin: 0 auto;
+  }
+
+  & .username {
     font-size: 1rem;
     text-align: center;
-    margin-top: 0.5rem;
+    margin: 0.5rem 0;
+    text-transform: capitalize;
   }
 }
 
-@media screen and (max-width: 1199px) {
+@media screen and (max-width: 768px) {
   .navMenu {
     display: block;
     position: absolute;
     width: 300px;
     height: fit-content;
     background-color: $lightBlueColor;
-    top: 5.5rem;
-    right: 0.25rem;
+    top: 70px;
+    right: 0rem;
     border-radius: $primaryBorderRadius;
+    padding-top: 3.5rem;
     opacity: 0;
     transform: translateX(120%);
     visibility: hidden;
     transition: all 0.25s linear;
+    z-index: 20;
 
     & > .navMenu__list {
-      margin-top: 1rem;
-
       & > li {
         border-bottom: 1px solid $lightGrey;
         text-transform: uppercase;
@@ -57,6 +85,6 @@
     transform: translateX(0);
     visibility: visible;
     box-shadow: 0px 2px 6px rgba(24, 24, 24, 0.75),
-      0px 2px 15px rgba(247, 247, 229, 0.8);
+      1px 2px 6px rgba(0, 0, 0, 0.3);
   }
 }

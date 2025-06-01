@@ -20,6 +20,7 @@ const googleAuth = async (req, res, next) => {
             id: user._id,
             username,
             avatar,
+            isLoggedIn: true,
           },
         });
     } else {
@@ -45,6 +46,7 @@ const googleAuth = async (req, res, next) => {
             username: newUser.username,
             email: newUser.email,
             avatar: newUser.avatar,
+            isLoggedIn: true,
           },
         });
     }

@@ -16,7 +16,7 @@ import Button from "../../components/ui/Button/Button";
 import Avatar from "../../components/ui/Avatar/Avatar";
 import Backdrop from "../../components/ui/Backdrop/Backdrop";
 import Modal from "../../components/Modal/Modal";
-import UserListings from "../../components/UserListings/UserListings";
+import OwnListings from "../../components/OwnListings/OwnListings";
 /*------------------------*/
 import styles from "./Profile.module.scss";
 
@@ -31,7 +31,7 @@ const Profile = () => {
   const avatarInputRef = useRef(null);
   const listingsListRef = useRef(null);
   const dispatch = useDispatch();
-  const { id, username, email, avatar } = useSelector(
+  const { _id, username, email, avatar } = useSelector(
     (state) => state?.user?.userData
   );
 
@@ -61,7 +61,9 @@ const Profile = () => {
 
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-            dispatch(userOperations.update({ id, avatar: downloadUrl }));
+            dispatch(
+              userOperations.update({ userId: _id, avatar: downloadUrl })
+            );
             setImgUploadLoading(false);
             setFileUploadError(false);
           });
@@ -71,7 +73,7 @@ const Profile = () => {
     if (file) {
       handleFileUpload(file);
     }
-  }, [dispatch, file, id]);
+  }, [dispatch, file, _id]);
 
   // FIREBASE STORAGE
   //allow read;
@@ -96,7 +98,7 @@ const Profile = () => {
   };
 
   const onConfirmDeleteAccountClick = () => {
-    dispatch(userOperations.deleteUser(id));
+    dispatch(userOperations.deleteUser(_id));
   };
 
   const onSignoutClick = () => {
@@ -130,7 +132,9 @@ const Profile = () => {
           </div>
         ) : (
           <>
-            <Avatar source={avatar} width="120px" height="120px" />
+            <div className={styles.avatarWrapper}>
+              <Avatar source={avatar} width="120px" height="120px" />
+            </div>
             <p
               onClick={onAvatarChangeHandleClick}
               className={styles.changeAvatar}
@@ -182,7 +186,7 @@ const Profile = () => {
       </div>
 
       <div className={styles.userListingsWrapper}>
-        <UserListings
+        <OwnListings
           listingsListRef={listingsListRef}
           isOpenedList={isOpenedList}
         />

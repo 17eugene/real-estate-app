@@ -1,9 +1,13 @@
 @import "../../variables.scss";
 
+.formWrapper {
+  padding: 3rem 0;
+  position: relative;
+}
+
 .title {
   text-align: center;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .createFrom {
@@ -20,6 +24,10 @@
 
     & .inputWrapper {
       position: relative;
+
+      & > input {
+        padding-right: 1rem;
+      }
     }
 
     .validationError {
@@ -29,34 +37,51 @@
       text-align: center;
     }
 
-    & input[type="text"] {
-      margin-right: 0;
+    & select {
       width: 400px;
-      padding-right: 2rem;
+      font-family: "Oswald";
+      font-weight: 400;
+      height: 50px;
     }
   }
 
   & .right {
     display: flex;
     flex-direction: column;
-
-    & > p {
-      margin-bottom: 1.5rem;
-    }
+    flex-shrink: 0;
 
     & > button {
-      background-color: $primaryButtonColor;
       color: #fff;
       flex-grow: 0;
+      margin-top: 0.75rem;
 
-      &:hover,
-      &:focus {
-        background-color: rgba(125, 125, 250, 0.9);
+      &:first-of-type {
+        background-color: $secondaryButtonColor;
+      }
+
+      &:last-child {
+        background-color: $primaryButtonColor;
+      }
+
+      &:hover {
+        background-color: transparent;
+        color: $blueColor;
+        outline: 1px solid #a3baba;
       }
 
       &:disabled {
         background-color: lightgrey;
         cursor: auto;
+        color: #fff;
+        outline: none;
+
+        &:active {
+          background-color: lightgrey;
+        }
+      }
+
+      &:active {
+        background-color: $primaryButtonColor;
       }
     }
 
@@ -79,7 +104,7 @@ textarea {
   width: 100%;
   padding: 1rem;
 
-  font-family: "Source Serif 4", sans-serif;
+  font-family: "Oswald", sans-serif;
   font-size: $regularTextSize;
   color: #000;
 
@@ -95,6 +120,8 @@ textarea {
 
 .optionsWrapper {
   display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   align-items: center;
   max-width: 400px;
   margin-top: 0.5rem;
@@ -108,8 +135,6 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    margin-right: 1.5rem;
     font-size: $regularTextSize;
     text-transform: capitalize;
 
@@ -164,7 +189,7 @@ textarea {
     }
 
     & > input:checked + label > .checkmark {
-      background-color: $blueColor;
+      background-color: $checkboxActive;
       box-shadow: none;
 
       &::after {
@@ -203,16 +228,40 @@ select {
 
 .uploadImage {
   width: 100%;
+  position: relative;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  & > .customInput {
+    outline: 1px solid $lightGrey;
+    color: #000;
+    background-color: $inputColor;
+    width: 200px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Oswald";
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.3);
+  }
 
   & > input {
     padding: 0;
     outline: none;
     border: none;
-    width: 350px;
+    width: 200px;
+    opacity: 0;
+    height: 40px;
+    cursor: pointer;
   }
 
   & + p {
-    margin-top: 1rem;
+    margin: 0;
+    margin-bottom: 1rem;
     font-size: $smallTextSize;
     color: $redColor;
     text-align: center;
@@ -220,7 +269,7 @@ select {
 }
 
 .uploadedImagesWrapper {
-  margin-top: 1rem;
+  min-width: 280px;
 
   & > div {
     display: flex;
@@ -242,6 +291,85 @@ select {
       text-transform: uppercase;
       font-size: $smallTextSize;
       cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .createFrom {
+    flex-direction: column;
+    gap: 3rem;
+
+    & .left {
+      gap: 2rem;
+    }
+
+    & .left select {
+      width: 100%;
+      min-width: 280px;
+      height: 65px;
+      font-size: 1.25rem;
+    }
+
+    & .left textarea {
+      min-width: 280px;
+      height: 200px;
+      font-size: 1.25rem;
+    }
+
+    & .left .optionsWrapper {
+      max-width: 100%;
+      column-gap: 2.5rem;
+      row-gap: 2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+
+      & .checkboxContainer label {
+        font-size: 1.25rem;
+
+        & > .checkmark {
+          width: 1.5rem;
+          height: 1.5rem;
+
+          &:after {
+            left: 8px;
+            top: 2px;
+            width: 7px;
+            height: 17px;
+          }
+        }
+      }
+    }
+
+    & .left .inputNumberWrapper {
+      width: 100%;
+      display: block;
+      min-width: 280px;
+
+      & input {
+        display: inline-block;
+        min-width: 150px;
+        margin-right: 1rem;
+      }
+
+      & p {
+        display: inline-block;
+        min-width: max-content;
+      }
+    }
+
+    & .right > button {
+      margin-top: 1.5rem;
+      height: 60px;
+      min-width: 280px;
+    }
+
+    & .right .uploadImage .customInput {
+      height: 60px;
+
+      & + input {
+        height: 60px;
+      }
     }
   }
 }

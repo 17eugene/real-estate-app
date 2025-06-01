@@ -2,7 +2,7 @@
 
 .profileFormWrapper {
   margin: 0 auto;
-  min-width: 300px;
+  min-width: 280px;
   width: fit-content;
   margin-top: 3rem;
 
@@ -16,6 +16,11 @@
     height: 140px;
     display: flex;
     justify-content: center;
+  }
+
+  & > .avatarWrapper {
+    margin: 0 auto;
+    width: fit-content;
   }
 
   .changeAvatar {
@@ -90,19 +95,15 @@
 
   button:nth-child(1) {
     background-color: $blueColor;
-
-    &:hover,
-    &:focus {
-      background-color: rgba(125, 125, 250, 0.8);
-    }
   }
 
   button:nth-child(2) {
     background-color: $redColor;
+  }
 
-    &:hover,
-    &:focus {
-      background-color: rgba(235, 10, 10, 0.8);
+  @media (hover: hover) {
+    button:hover {
+      background-color: transparent;
     }
   }
 
@@ -141,5 +142,27 @@
   & .active {
     transform: rotate(-135deg);
     top: 45%;
+  }
+}
+
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .listingListBtn {
+    margin-top: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .buttonsWrapper {
+    flex-direction: column;
+
+    & > button {
+      width: 100%;
+    }
   }
 }

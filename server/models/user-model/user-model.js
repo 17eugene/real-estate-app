@@ -31,6 +31,11 @@ const userSchema = Schema(
       default:
         "https://images.mubicdn.net/images/cast_member/332867/cache-209837-1489990521/image-w856.jpg?size=800x",
     },
+
+    isLoggedIn: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true }
 );

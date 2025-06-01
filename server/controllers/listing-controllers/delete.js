@@ -3,12 +3,8 @@ const { Listing } = require("../../models");
 const deleteListing = async (req, res, next) => {
   const listingId = req.params.id;
 
-  console.log(listingId);
-
   try {
     const listing = await Listing.findByIdAndDelete(listingId);
-
-    console.log("LISTING", listing);
 
     if (req.user.id !== listing.owner.toString()) {
       const error = new Error("Forbidden");
@@ -28,7 +24,6 @@ const deleteListing = async (req, res, next) => {
       data: listing,
     });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

@@ -1,4 +1,4 @@
-export const options = [
+export const typeOptions = [
   {
     value: "sell",
     id: 1,
@@ -9,15 +9,22 @@ export const options = [
   },
 ];
 
-export const checkOptions = [
+export const checkboxOptions = [
   {
     name: "furnished",
+    label: "furnished",
   },
   {
-    name: "pets allowed",
+    name: "petsAllowed",
+    label: "pets allowed",
   },
   {
-    name: "offer",
+    name: "parking",
+    label: "parking",
+  },
+  {
+    name: "gatedCommunity",
+    label: "gated community",
   },
 ];
 

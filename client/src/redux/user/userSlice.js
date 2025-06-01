@@ -14,6 +14,7 @@ const userSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
+      /*-----------------------------SIGNUP----------------------------------*/
       .addCase(userOperations.signup.pending, (state) => {
         state.loading = true;
       })
@@ -25,20 +26,22 @@ const userSlice = createSlice({
         state.error = action.payload.message;
         state.loading = false;
       })
+      /*-----------------------------SIGNIN----------------------------------*/
       .addCase(userOperations.signin.pending, (state) => {
         state.loading = true;
       })
       .addCase(userOperations.signin.fulfilled, (state, action) => {
-        console.log(action);
         state.userData = action.payload.userData;
         state.loading = false;
         state.error = null;
       })
       .addCase(userOperations.signin.rejected, (state, action) => {
-        state.error = action.payload.message;
+        state.userListings = [];
+        state.error = action.payload?.message;
         state.loading = false;
         state.userData = null;
       })
+      /*-----------------------------Google AUTH----------------------------------*/
       .addCase(userOperations.googleAuth.pending, (state) => {
         state.loading = true;
       })
@@ -49,11 +52,27 @@ const userSlice = createSlice({
       })
       .addCase(userOperations.googleAuth.rejected, (state, action) => {
         state.error =
-          "Username is longer then maximum allowed length (50)" ||
+          "Username is longer than maximum allowed length (50)" ||
           action.payload.message;
         state.loading = false;
         state.userData = null;
       })
+      /*-----------------------------GET CURRENT----------------------------------*/
+      .addCase(userOperations.getCurrentUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(userOperations.getCurrentUser.fulfilled, (state, action) => {
+        state.userData = action.payload.userData;
+        state.error = null;
+        state.loading = false;
+        state.userListings = [];
+      })
+      .addCase(userOperations.getCurrentUser.rejected, (state, action) => {
+        state.error = action.payload?.message;
+        state.loading = false;
+        state.userData = null;
+      })
+      /*-----------------------------UPDATE----------------------------------*/
       .addCase(userOperations.update.pending, (state) => {
         state.loading = true;
       })
@@ -64,20 +83,23 @@ const userSlice = createSlice({
       })
       .addCase(userOperations.update.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
-      .addCase(userOperations.deleteUser.pending, (state, action) => {
+      /*-----------------------------DELETE----------------------------------*/
+      .addCase(userOperations.deleteUser.pending, (state, _) => {
         state.loading = true;
       })
-      .addCase(userOperations.deleteUser.fulfilled, (state, action) => {
+      .addCase(userOperations.deleteUser.fulfilled, (state, _) => {
         state.userData = null;
         state.loading = false;
         state.error = null;
+        state.userListings = [];
       })
       .addCase(userOperations.deleteUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
+      /*-----------------------------SIGNOUT----------------------------------*/
       .addCase(userOperations.signout.pending, (state, _) => {
         state.loading = true;
       })
@@ -85,23 +107,24 @@ const userSlice = createSlice({
         state.userData = null;
         state.loading = false;
         state.error = null;
+        state.userListings = [];
       })
-      .addCase(userOperations.signout.rejected, (state, action) => {
+      .addCase(userOperations.signout.rejected, (state, _) => {
         state.loading = false;
-        console.log(action);
-      })
-      .addCase(listingOperations.getUserListings.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(listingOperations.getUserListings.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-        state.userListings = [...action.payload.data];
-      })
-      .addCase(listingOperations.getUserListings.rejected, (state, action) => {
-        state.loading = false;
-        console.log(action);
       });
+    /*-----------------------------GET USER LISTINGS----------------------------------*/
+    // .addCase(listingOperations.getUserListings.pending, (state) => {
+    //   state.loading = true;
+    // })
+    // .addCase(listingOperations.getUserListings.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   state.error = null;
+    //   state.userListings = [...action.payload.data];
+    // })
+    // .addCase(listingOperations.getUserListings.rejected, (state, action) => {
+    //   state.loading = false;
+    //   console.log(action);
+    // });
   },
 });
 

@@ -1,0 +1,39 @@
+@import "../../variables.scss";
+
+.messageWrapper {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  width: fit-content;
+  max-width: 75%;
+  margin-bottom: 0.25rem;
+  position: relative;
+
+  &.author {
+    padding-left: 3rem;
+    padding-right: 0.75rem;
+    background-color: $lightBlueColor;
+    margin-left: auto;
+  }
+
+  &.recipient {
+    padding-right: 3rem;
+    padding-left: 0.75rem;
+    background-color: $lightGrey;
+  }
+
+  & > .messageTime {
+    position: absolute;
+    bottom: 3px;
+    font-size: 0.55rem;
+    color: #727171;
+
+    &.author {
+      left: 5px;
+    }
+
+    &.recipient {
+      right: 5px;
+    }
+  }
+}

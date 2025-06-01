@@ -8,7 +8,7 @@ const signin = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (!user || !user.comparePasswords(password)) {
-      const error = new Error("Incorrect e-mail or password");
+      const error = new Error("Incorrect user data");
       error.status = 409;
       throw error;
     }
@@ -17,6 +17,9 @@ const signin = async (req, res, next) => {
 
     const token = jwt.sign(tokenPayload, process.env.TOKEN_SECRET_KEY);
 
+    user.isLoggedIn = true;
+    await user.save();
+
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
@@ -24,14 +27,13 @@ const signin = async (req, res, next) => {
         message: "Successfully logged in",
         code: 200,
         userData: {
-          id: user._id,
+          _id: user._id,
           username: user.username,
           email: user.email,
           avatar: user.avatar,
+          isLoggedIn: user.isLoggedIn,
         },
       });
-
-    console.log(req.cookies);
   } catch (error) {
     next(error);
   }

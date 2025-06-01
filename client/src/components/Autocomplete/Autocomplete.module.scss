@@ -1,0 +1,26 @@
+@import "../../variables.scss";
+
+.autocompleteWrapper {
+  position: relative;
+}
+
+.suggestionsWrapper {
+  background-color: $inputColor;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  border-radius: $primaryBorderRadius;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+  max-height: 300px;
+  overflow-y: auto;
+
+  & > ul > li {
+    padding: 0.65rem;
+    transition: all 0.15s linear;
+  }
+
+  & > ul > li:hover {
+    cursor: pointer;
+    background-color: $lightBlueColor;
+  }
+}

@@ -1,0 +1,52 @@
+@import "../../variables.scss";
+
+.navigation {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-transform: uppercase;
+  font-size: $regularTextSize;
+  padding: 0;
+  margin-left: 1rem;
+
+  & li {
+    padding: 0.8rem 1rem;
+
+    & a {
+      color: #000;
+    }
+
+    & .activeNavLink {
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+    }
+  }
+
+  & .signin {
+    background-color: $blueColor;
+    border-radius: $primaryBorderRadius;
+    transition: all 0.15s linear;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.45);
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+    }
+  }
+}
+
+a {
+  color: #000;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
+}

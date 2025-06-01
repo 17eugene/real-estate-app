@@ -1,0 +1,108 @@
+@import "../../variables.scss";
+
+.userInfoSection {
+  background-color: $inputColor;
+  align-self: flex-start;
+  padding: 2rem 1.25rem;
+  flex-basis: 350px;
+  min-width: 275px;
+  border-radius: $primaryBorderRadius;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+
+  & > span {
+    font-size: $secondaryTitleTextSize;
+    margin-bottom: 2rem;
+    display: block;
+  }
+
+  & > .userDetails {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+
+    & > img {
+      width: 70px;
+      height: 70px;
+    }
+
+    & > span {
+      text-transform: capitalize;
+      font-size: $secondaryTitleTextSize;
+    }
+  }
+
+  & > button {
+    margin: 0 auto 1rem auto;
+    padding: 0.75rem 2.5rem;
+    display: block;
+    background-color: transparent;
+    border: 2px solis black;
+    outline: none;
+    font-family: "Oswald";
+    font-size: $regularTextSize;
+    cursor: pointer;
+    transition: all 0.15s linear;
+
+    &:hover {
+      color: #fff;
+      background-color: #000;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .showAll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 0.25rem;
+    width: max-content;
+    cursor: pointer;
+
+    & > svg {
+      width: 30px;
+      height: 30px;
+      padding-top: 0.25rem;
+    }
+  }
+}
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .userInfoSection {
+    flex-basis: auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    padding: 1rem 1.5rem;
+
+    & > span,
+    & > .userDetails {
+      display: none;
+    }
+
+    & > button {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .userInfoSection {
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-basis: 0;
+    max-width: 75%;
+    margin: 0 auto;
+  }
+}

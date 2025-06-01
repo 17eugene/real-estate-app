@@ -1,0 +1,73 @@
+@import "../../../variables.scss";
+
+.moreFilterBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  & > .checkboxContainer {
+    position: relative;
+    cursor: pointer;
+    padding-top: 0.5rem;
+    width: fit-content;
+    padding-left: 40px;
+    font-size: $regularTextSize;
+    text-transform: capitalize;
+
+    & > input {
+      position: absolute;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      outline: none;
+    }
+
+    & > label {
+      cursor: pointer;
+
+      & > .checkmark {
+        position: absolute;
+        top: 5px;
+        left: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: $primaryBorderRadius;
+        transition: all 0.15s linear;
+        overflow: hidden;
+        box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.3),
+          inset -1px -1px 3px rgba(0, 0, 0, 0.3),
+          inset 2px 2px 6px rgba(126, 126, 126, 0.3),
+          inset 2px 2px 6px rgba(126, 126, 126, 0.3);
+
+        &:after {
+          content: "";
+          position: absolute;
+          left: 9px;
+          top: 3px;
+          width: 6px;
+          height: 15px;
+          border: solid white;
+          border-width: 0 3px 3px 0;
+          transform: rotate(45deg);
+          display: none;
+        }
+      }
+
+      &:hover .checkmark {
+        box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.5),
+          inset -1px -1px 5px rgba(0, 0, 0, 0.5),
+          inset 2px 2px 6px rgba(126, 126, 126, 0.4),
+          inset 2px 2px 6px rgba(126, 126, 126, 0.4);
+      }
+    }
+
+    & > input:checked + label > .checkmark {
+      background-color: $checkboxActive;
+      box-shadow: none;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,19 +1,22 @@
 import { forwardRef } from "react";
-import styles from "./TextInput.module.scss";
+import styles from "./FormInput.module.scss";
 
-const FormInput = forwardRef((props, ref) => {
+const FormInput = forwardRef(({ ...props }, ref) => {
   return (
     <input
-      defaultValue={props.defaultValue}
-      max={props.max}
-      min={props.min}
-      type={props.type}
-      name={props.name}
-      placeholder={props.placeholder}
-      onChange={props.onChange}
-      id={props.id}
-      disabled={props.disabled}
+      className={styles.textInput}
       ref={ref}
+      {...props}
+      // defaultValue={props.defaultValue}
+      // max={props.max}
+      // min={props.min}
+      // type={props.type}
+      // name={props.name}
+      // placeholder={props.placeholder}
+      // onChange={props.onChange}
+      // id={props.id}
+      // disabled={props.disabled}
+      // ref={ref}
     />
   );
 });

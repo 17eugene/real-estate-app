@@ -1,23 +1,11 @@
 import Container from "../../components/Container/Container";
 import HomePageCard from "../../components/HomePageCard/HomePageCard";
-import { IoSearchSharp } from "react-icons/io5";
 import { cardsContent } from "../../utils/homePageCardsContent";
 import styles from "./Home.module.scss";
 
 const Home = () => {
   return (
     <>
-      {/* HERO */}
-      <div className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.title}>Find a better place</h1>
-          <form className={styles.searchForm}>
-            <input type="text" placeholder="Search..." />
-            <IoSearchSharp className={styles.icon} />
-          </form>
-        </div>
-      </div>
-
       {/*FIRST SECTION */}
       <section>
         <Container>

@@ -4,7 +4,10 @@ const getListing = async (req, res, next) => {
   const listingId = req.params.id;
 
   try {
-    const listing = await Listing.findById(listingId);
+    const listing = await Listing.findById(listingId).populate(
+      "owner",
+      "_id username avatar createdAt isLoggedIn"
+    );
 
     if (!listing) {
       const error = new Error("Listing not found");

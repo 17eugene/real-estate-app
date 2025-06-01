@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { userOperations } from "../../redux/user/user-operations";
+import { signInFormSchema } from "../../utils/formValidationSchema";
 import Button from "../../components/ui/Button/Button";
 import FormInput from "../../components/ui/FormInput/FormInput";
 import OAuth from "../../components/OAuth/OAuth";
@@ -10,33 +13,37 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import styles from "../SignUp/SignUp.module.scss";
 
 const SignIn = () => {
-  const [formValue, setFormValue] = useState({});
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  // const [formValue, setFormValue] = useState({});
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
-  const inputHandleChange = (e) => {
-    setFormValue({
-      ...formValue,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(signInFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await dispatch(userOperations.signin(formValue));
-
-    if (result?.payload?.code === 200) {
-      e.target.reset();
+  const onFormSubmit = async (data) => {
+    const res = await dispatch(userOperations.signin(data));
+    if (res.payload.code === 200) {
+      reset();
       navigate("/", { replace: true });
     }
   };
 
   const showPasswordClick = () => {
-    setPasswordVisible(!passwordVisible);
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -47,43 +54,50 @@ const SignIn = () => {
           <p>{error}</p>
         </div>
       )}
-      <form onSubmit={handleSubmit} className={styles.signForm}>
-        <div>
+      <form onSubmit={handleSubmit(onFormSubmit)} className={styles.signForm}>
+        <div className={styles.inputWrapper}>
           <FormInput
             placeholder="E-mail"
             type="text"
             id="email"
             name="email"
-            onChange={inputHandleChange}
+            {...register("email")}
           />
           <MdEmail className={styles.icon} />
+          {errors.email && (
+            <p className={styles.validationError}>{errors.email.message}</p>
+          )}
         </div>
-        <div>
+        <div className={styles.inputWrapper}>
           <FormInput
             placeholder="Password"
-            type={passwordVisible ? "text" : "password"}
+            type={isPasswordVisible ? "text" : "password"}
             id="password"
             name="password"
-            onChange={inputHandleChange}
+            {...register("password")}
           />
-          {passwordVisible ? (
+          {isPasswordVisible ? (
             <IoEye onClick={showPasswordClick} className={styles.icon} />
           ) : (
             <IoEyeOff onClick={showPasswordClick} className={styles.icon} />
+          )}
+          {errors.password && (
+            <p className={styles.validationError}>{errors.password.message}</p>
           )}
         </div>
 
         <Button
           loading={loading}
-          disabled={
-            loading || !formValue?.email?.trim() || !formValue?.password?.trim()
-          }
+          disabled={loading}
           text="Sign In"
           type="submit"
         />
         <OAuth />
         <p>
-          Need an account? <Link to="/signup">Sign Up</Link>
+          Need an account?{" "}
+          <Link className={styles.link} to="/signup">
+            Sign Up
+          </Link>
         </p>
       </form>
     </div>

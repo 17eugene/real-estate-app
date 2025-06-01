@@ -5,11 +5,23 @@ const Backdrop = ({
   isOpenedEditForm,
   isOpenedConfirmation,
   isOpenedSwiper,
+  isOpenedChat,
+  isOpenedChatMsg,
+  activeBackdrop,
+  isActiveFallback,
+  isOpenedSidebar,
 }) => {
   return (
     <div
       className={
-        isOpenedEditForm || isOpenedConfirmation || isOpenedSwiper
+        isOpenedEditForm ||
+        isOpenedConfirmation ||
+        isOpenedSwiper ||
+        isOpenedChat ||
+        isOpenedChatMsg ||
+        activeBackdrop ||
+        isActiveFallback ||
+        isOpenedSidebar
           ? `${styles.backdrop} ${styles.active}`
           : `${styles.backdrop}`
       }

@@ -1,7 +1,9 @@
-@use "./variables.scss";
+@import "./variables.scss";
 @import-normalize;
 
-body {
+body,
+html {
+  height: 100%;
   overflow-x: hidden;
   margin: 0;
   font-family: "Oswald", "Source Serif 4", sans-serif;
@@ -50,4 +52,36 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #eee;
+  box-shadow: inset 2px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $lightBlueColor;
+  box-shadow: inset 1px -1px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#root > div {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+main {
+  flex: 1 1 auto;
 }

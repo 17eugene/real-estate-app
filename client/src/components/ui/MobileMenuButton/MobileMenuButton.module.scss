@@ -1,0 +1,55 @@
+@import "../../../variables.scss";
+
+.burgerMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  transition: all 0.2s linear 0.2s;
+
+  & span:nth-child(1) {
+    width: 35px;
+    height: 4px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+    transition: all 0.2s linear;
+  }
+  & span:nth-child(2) {
+    width: 23px;
+    height: 4px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+    transition: all 0.2s linear;
+  }
+  & span:nth-child(3) {
+    width: 12px;
+    height: 4px;
+    background-color: #000;
+    border-radius: $primaryBorderRadius;
+    transition: all 0.2s linear;
+  }
+}
+
+.burgerMenu.active {
+  opacity: 0;
+  // transform: translate(30%, 160%);
+  // z-index: 30;
+
+  // & span:nth-child(1) {
+  //   transform: translateY(200%) rotate(-45deg);
+  // }
+  // & span:nth-child(2) {
+  //   transform: translateX(150%);
+  //   opacity: 0;
+  // }
+  // & span:nth-child(3) {
+  //   transform: translateY(-250%) rotate(45deg);
+  //   width: 35px;
+  // }
+}
+
+@media screen and (min-width: 769px) {
+  .burgerMenu {
+    display: none;
+  }
+}

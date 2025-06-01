@@ -18,8 +18,6 @@ const EditProfileForm = ({ setIsOpenEditForm, username, email }) => {
     });
   };
 
-  console.log(editFormValue);
-
   const onCloseClickHandler = () => {
     setIsOpenEditForm(false);
   };

@@ -1,6 +1,6 @@
 @import "../../../variables.scss";
 
-.cardMenu {
+.cardMenuWrapper {
   background-color: $blueColor;
   position: absolute;
   top: 0px;
@@ -9,53 +9,67 @@
   bottom: 0;
   z-index: 1;
   opacity: 0;
-  transform: translateY(-120%);
+  transform: translateY(-110%);
   transition: all 0.25s linear;
   overflow: hidden;
   margin: 0 auto;
+  pointer-events: none;
 
   &.opened {
     transform: translateY(0);
     opacity: 0.9;
+    pointer-events: all;
+  }
+}
+
+.cardMenuList {
+  width: 100%;
+  margin-top: 0.75rem;
+  padding-top: 2rem;
+  border-radius: $primaryBorderRadius;
+  overflow: hidden;
+  position: relative;
+
+  & li:nth-of-type(1) {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 
-  & ul {
+  & li {
     width: 100%;
-    padding-top: 2rem;
-    border-radius: $primaryBorderRadius;
-    overflow: hidden;
-    position: relative;
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s linear;
 
-    & li:nth-of-type(1) {
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    & li {
-      width: 100%;
-      padding: 10px 15px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: all 0.2s linear;
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.5);
-        color: #fff;
-      }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
     }
   }
 }
 
-.closeIcon {
+.closeMenuIconWrapper {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 20px;
-  height: 20px;
+  top: 5px;
+  right: 5px;
   color: $inputColor;
   transition: all 0.25s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 50%;
+  padding: 0.2rem;
 
   &:hover {
-    transform: scale(1.2);
+    color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(250, 247, 247, 0.75);
+    transform: scale(1.1);
+  }
+
+  & > svg {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }
 
@@ -85,6 +99,17 @@
       font-weight: 600;
       font-size: $smallTextSize;
       text-transform: uppercase;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .cardMenuList {
+    margin-top: 1.25rem;
+
+    & li {
+      padding: 12px 15px;
+      font-size: 1.25rem;
     }
   }
 }

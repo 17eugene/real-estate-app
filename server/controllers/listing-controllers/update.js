@@ -18,9 +18,13 @@ const updateListing = async (req, res, next) => {
       throw error;
     }
 
-    const updatedListing = await Listing.findByIdAndUpdate(listingId, req.body, {
-      new: true,
-    });
+    const updatedListing = await Listing.findByIdAndUpdate(
+      listingId,
+      req.body,
+      {
+        new: true,
+      }
+    );
 
     res.status(200).json({
       message: "Successfully updated",

@@ -25,26 +25,6 @@
   }
 }
 
-button {
-  background-color: $blueColor;
-  color: #fff;
-  border: none;
-  outline: none;
-  font-weight: 700;
-  font-size: $regularTextSize;
-  border-radius: $primaryBorderRadius;
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
-  cursor: pointer;
-  transition: all 0.2s linear;
-
-  &:hover {
-    background-color: transparent;
-    color: $blueColor;
-    outline: 1px solid #a3baba;
-  }
-}
-
 .arrow {
   content: "";
   display: block;

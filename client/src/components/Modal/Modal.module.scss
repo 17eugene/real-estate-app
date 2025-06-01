@@ -1,6 +1,20 @@
+@import "../../variables.scss";
+
 .modalWindow {
   position: relative;
   background-color: #fff;
-  padding: 1.5rem;
-  min-height: 185px;
+  padding: 2rem;
+  border-radius: $primaryBorderRadius;
+  height: fit-content;
+  min-width: 280px;
+}
+
+@media screen and (max-width: 768px) {
+  .modalWindow {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

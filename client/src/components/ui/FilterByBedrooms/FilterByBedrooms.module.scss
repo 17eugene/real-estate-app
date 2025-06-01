@@ -1,0 +1,76 @@
+@import "../../../variables.scss";
+
+.bedroomsFilterBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .bedroomsNumberWrapper {
+    display: flex;
+    align-items: center;
+
+    & .variantWrapper {
+      width: 4rem;
+      height: 3rem;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s linear;
+      border-top: 1px solid #a3baba;
+      border-bottom: 1px solid #a3baba;
+      text-transform: capitalize;
+
+      & input {
+        display: none;
+        pointer-events: none;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+      }
+
+      & .label {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.active {
+          background-color: $lightGrey;
+        }
+      }
+
+      &:nth-child(2n) {
+        border: 1px solid #a3baba;
+      }
+
+      &:nth-child(1) {
+        border-left: 1px solid #a3baba;
+      }
+
+      &:hover {
+        background-color: $lightGrey;
+      }
+    }
+  }
+
+  .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    & input {
+      width: 20px;
+      height: 20px;
+      outline: none;
+    }
+  }
+}
+
+// @media screen and (max-width: 479px) {
+//   .bedroomsFilterBody .bedroomsNumberWrapper .variantWrapper {
+//     width: 2rem;
+//   }
+// }

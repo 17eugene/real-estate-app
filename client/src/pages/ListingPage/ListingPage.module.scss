@@ -1,0 +1,156 @@
+@import "../../variables.scss";
+
+// .swiper {
+//   width: 600px;
+//   height: 300px;
+
+//   & .swiperPagination {
+//     width: 100%;
+//   }
+// }
+
+.listingImage {
+  height: 550px;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 60%;
+  margin-bottom: 3rem;
+  cursor: pointer;
+}
+
+.listingContent {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  margin-bottom: 3rem;
+
+  & .listingName {
+    margin-bottom: 1.5rem;
+    font-size: $secondaryTitleTextSize;
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+
+  & .listingDescr {
+    max-width: 800px;
+    line-height: 1.5;
+    border-radius: $primaryBorderRadius;
+  }
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+
+  & > svg {
+    color: $redColor;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  & > p {
+    font-size: $regularTextSize;
+    display: flex;
+    align-items: center;
+
+    & > span::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  & + .listingTypeWrapper {
+    margin-bottom: 3rem;
+  }
+}
+
+.listingDetailsWrapper > p:nth-of-type(2) {
+  font-size: $regularTextSize;
+  letter-spacing: 0.035rem;
+  margin-bottom: 2rem;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.optionsList {
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  text-transform: capitalize;
+  border-radius: $primaryBorderRadius;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  background-color: $inputColor;
+  padding: 1rem;
+  width: fit-content;
+
+  & > li {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid #000;
+    border-radius: $primaryBorderRadius;
+
+    & p {
+      position: relative;
+
+      & > .m {
+        text-transform: lowercase;
+      }
+
+      & > .m:after {
+        content: "2";
+        font-size: 0.65rem;
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .listingImage {
+    height: 380px;
+    object-fit: cover;
+    margin-bottom: 2rem;
+  }
+
+  .listingContent {
+    display: flex;
+    flex-direction: column;
+
+    & .optionsList {
+      gap: 0.5rem;
+    }
+
+    & .listingName {
+      font-size: 1.5rem;
+    }
+
+    & .listingTypeWrapper {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .listingImage {
+    height: 280px;
+    // object-fit: cover;
+    // margin-bottom: 2rem;
+  }
+
+  .optionsList {
+    display: none;
+  }
+
+  .listingName > p {
+    font-size: $secondaryTitleTextSize;
+    line-height: 1.5;
+  }
+
+  .listingContent .listingDescr {
+    line-height: 1.3;
+  }
+}

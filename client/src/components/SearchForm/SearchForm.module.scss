@@ -1,0 +1,66 @@
+@import "../../variables.scss";
+
+.searchForm {
+  width: 100%;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > input {
+    flex-basis: 440px;
+    outline: none;
+    border: none;
+    height: 60px;
+    font-size: $secondaryTitleTextSize;
+    padding: 7px 15px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &::placeholder {
+      font-family: "Oswald", sans-serif;
+      color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  & > button {
+    flex-grow: 1;
+    min-width: 60px;
+    min-height: 60px;
+    border: none;
+    outline: none;
+    padding: 0;
+    transition: background-color 0.15s linear;
+    color: #000;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: $lightGrey;
+    }
+
+    & > .icon {
+      height: 100%;
+      width: 60%;
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .searchForm > input {
+    height: 50px;
+    padding: 4px 8px;
+    font-size: $regularTextSize;
+
+    &::placeholder {
+      font-size: $regularTextSize;
+    }
+
+    & + button {
+      min-width: 50px;
+      min-height: 50px;
+      flex-grow: 0;
+    }
+  }
+}

@@ -1,30 +1,37 @@
 import { useState } from "react";
+/*----------------------------------------------------- */
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setPriceRange,
-  setBedroomsNumber,
-  setMoreOptions,
-} from "../../redux/filtering/filterSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { minMaxPriceSchema } from "../../utils/formValidationSchema";
-import FilterButton from "../ui/FilterButton/FilterButton";
+import {
+  filterOptions,
+  bedroomsNumberVariants,
+} from "../../utils/listingOptions";
+/*----------------------------------------------------- */
+import { useListingFilters } from "../../hooks/useListingFilters";
+import { transformPriceRangeQueryStr } from "../../utils/transformPriceRangeQueryStr";
+import useClickOutside from "../../hooks/useClickOutside";
+/*----------------------------------------------------- */
 import FilterWindow from "../ui/FilterWindow/FilterWindow";
+import FilterButton from "../ui/FilterButton/FilterButton";
 import Button from "../ui/Button/Button";
-import { filterOptions } from "../../utils/listingOptions";
+/*----------------------------------------------------- */
+import { GrClose } from "react-icons/gr";
+/*----------------------------------------------------- */
 import styles from "./FilterSection.module.scss";
 
-const FilterSection = () => {
+const FilterSection = ({ isOpenedFilterSection, toggleFilterSection }) => {
   const [activeFilter, setActiveFilter] = useState(null);
-  const [selectedBedroomsNumber, setSelectedBedroomsNumber] = useState("any");
   const [exactMatchBedrooms, setExactMatchBedrooms] = useState(false);
-  const [moreFilterOptions, setMoreFilterOptions] = useState({
-    pets: false,
-    furnished: false,
-    parking: false,
-  });
 
-  const dispatch = useDispatch();
+  const { bedrooms, priceRange, moreFilters, setFilters, resetFilters } =
+    useListingFilters();
+
+  const ref = useClickOutside(handleClickOutside);
+
+  function handleClickOutside() {
+    isOpenedFilterSection && toggleFilterSection();
+  }
 
   const {
     register,
@@ -34,8 +41,14 @@ const FilterSection = () => {
   } = useForm({
     resolver: zodResolver(minMaxPriceSchema),
     defaultValues: {
-      minimum: 0,
-      maximum: 0,
+      minimum:
+        parseFloat(priceRange.minPrice) ||
+        parseFloat(priceRange.exactPrice) ||
+        0,
+      maximum:
+        parseFloat(priceRange.maxPrice) ||
+        parseFloat(priceRange.exactPrice) ||
+        0,
     },
   });
 
@@ -47,56 +60,77 @@ const FilterSection = () => {
     }
   }
 
+  function exactMatchChangeHandler(e) {
+    setExactMatchBedrooms(e.target.checked);
+    if (bedrooms && bedrooms !== "any") {
+      bedroomsNumberVariants.forEach((variant) => {
+        if (bedrooms === variant.title) {
+          setFilters({ bedrooms: variant.matchTitle });
+        } else if (bedrooms === variant.matchTitle) {
+          setFilters({ bedrooms: variant.title });
+        }
+      });
+    }
+  }
+
   function onApplyClickHandler(data) {
     if (activeFilter === "price") {
-      if (data.minimum > data.maximum && data.maximum > 0) {
-        setValue("maximum", data.minimum);
-        dispatch(setPriceRange({ ...data, maximum: data.minimum }));
-      } else if (data.minimum > 0 && data.maximum === 0) {
-        dispatch(setPriceRange({ minimum: data.minimum }));
-      } else if (data.maximum > 0 && data.minimum === 0) {
-        dispatch(setPriceRange({ maximum: data.maximum }));
-      } else {
-        dispatch(setPriceRange(data));
+      if (data.minimum > data.maximum) {
+        setValue("maximum", 0);
       }
+      setFilters({
+        minPrice: transformPriceRangeQueryStr(data)?.minPrice,
+        maxPrice: transformPriceRangeQueryStr(data)?.maxPrice,
+        exactPrice: transformPriceRangeQueryStr(data)?.exactPrice,
+      });
 
       setActiveFilter(null);
     } else if (activeFilter === "bedrooms") {
-      dispatch(setBedroomsNumber(selectedBedroomsNumber));
       setActiveFilter(null);
     } else {
-      dispatch(setMoreOptions(moreFilterOptions));
       setActiveFilter(null);
     }
   }
 
-  function exactMatchChangeHandler(e) {
-    setExactMatchBedrooms(e.target.checked);
-    setSelectedBedroomsNumber("any");
+  function resetFiltersHandler() {
+    resetFilters();
+    setValue("maximum", 0);
+    setValue("minimum", 0);
   }
 
-  function onBedroomsNumberChangeHandler(e) {
-    setSelectedBedroomsNumber(e.target.value);
-  }
-
-  function moreFilterOptionsChangeHandler(e) {
-    setMoreFilterOptions((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.checked,
-    }));
-  }
+  console.log("AF", activeFilter);
 
   return (
-    <div className={styles.filterSection}>
-      {filterOptions.map((filter, index) => (
-        <div className={styles.filterBlock} key={index}>
+    <div
+      ref={ref}
+      className={
+        isOpenedFilterSection
+          ? `${styles.filterSection} ${styles.active}`
+          : styles.filterSection
+      }
+    >
+      <div className={styles.closeBtn} onClick={toggleFilterSection}>
+        <GrClose />
+      </div>
+      {filterOptions?.map((filter, index) => (
+        <div className={styles.filtersBlock} key={index}>
           <FilterButton
             filter={filter}
             selectFilterHandler={selectFilterHandler}
             selectedFilter={activeFilter}
+            priceRange={priceRange}
+            bedrooms={bedrooms}
           />
 
-          {activeFilter === filter.name ? (
+          {/* {activeFilter === filter.name ? ( */}
+          <div
+            className={
+              activeFilter === filter.name
+                ? `${styles.filterWindowWrapper} ${styles.opened}`
+                : `${styles.filterWindowWrapper}`
+            }
+          >
+            {/* {activeFilter === filter.name && ( */}
             <FilterWindow
               title={filter.title}
               filterName={filter.name}
@@ -106,16 +140,16 @@ const FilterSection = () => {
               onApplyClick={onApplyClickHandler}
               exactMatchChangeHandler={exactMatchChangeHandler}
               exactMatchBedrooms={exactMatchBedrooms}
-              onBedroomsNumberChangeHandler={onBedroomsNumberChangeHandler}
-              moreFilterOptionsChangeHandler={moreFilterOptionsChangeHandler}
-              moreFilterOptions={moreFilterOptions}
+              bedrooms={bedrooms}
+              setFilters={setFilters}
+              moreFilters={moreFilters}
             />
-          ) : null}
+          </div>
         </div>
       ))}
 
       <div className={styles.btnContainer}>
-        <Button text="Filter" type="button" />
+        <Button text="Reset All" type="button" onClick={resetFiltersHandler} />
       </div>
     </div>
   );

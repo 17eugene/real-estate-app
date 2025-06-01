@@ -1,39 +1,49 @@
 @import "../../variables.scss";
 
-.cardsContainer {
-  display: flex;
-  gap: 0.5rem;
-  min-height: 0;
+.userCard {
+  transition: all 0.2s linear;
+  position: relative;
+  width: 250px;
+  border: 1px solid $lightGrey;
+  overflow: hidden;
 
-  & > div {
-    padding: 2rem 1rem 1rem 1rem;
-    transition: all 0.2s linear;
-    position: relative;
+  &:hover {
+    background-color: $lightBlueColor;
+    box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
 
-    &:hover {
-      background-color: $lightBlueColor;
-      box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.4);
-      cursor: pointer;
-
-      & .cardMenuIcon {
-        opacity: 1;
-      }
+    & .cardMenuIcon {
+      opacity: 1;
     }
+  }
 
-    & > img {
-      margin-bottom: 0.5rem;
-    }
+  & > img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  & > .cardContent {
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
 
     & > p:nth-of-type(1) {
       text-transform: capitalize;
-    }
-
-    & > p:last-of-type {
-      font-size: $smallTextSize;
-    }
-
-    & > p:not(:last-child) {
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       margin-bottom: 0.5rem;
+    }
+
+    & > span:nth-of-type(1) {
+      display: block;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    & > span:nth-of-type(2) {
+      font-size: 0.6rem;
     }
   }
 }
@@ -42,11 +52,51 @@
   position: absolute;
   top: 10px;
   right: 8px;
-  width: 20px;
+  width: 40px;
+  height: 40px;
   opacity: 0;
   transition: all 0.2s linear;
+  border-radius: 50%;
+  background-color: rgba(250, 247, 247, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
-    transform: scale(1.25);
+    transform: scale(1.2);
+  }
+}
+
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  .userCard {
+    width: 100%;
+    height: 280px;
+
+    & > img {
+      height: 60%;
+    }
+
+    & > .cardContent {
+      height: 40%;
+
+      & > p:nth-of-type(1) {
+        margin-bottom: 0.75rem;
+      }
+
+      & > span:nth-of-type(1) {
+        margin-bottom: 1.5rem;
+      }
+
+      & > span:nth-of-type(2) {
+        font-size: 0.75rem;
+      }
+    }
   }
 }

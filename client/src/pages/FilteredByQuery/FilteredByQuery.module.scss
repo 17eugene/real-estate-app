@@ -1,0 +1,9 @@
+.listingListWrapper {
+  padding: 3rem 0 4rem 0;
+
+  & > .listingList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

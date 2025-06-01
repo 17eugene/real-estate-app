@@ -22,7 +22,8 @@
 
       &:hover,
       &:focus {
-        background-color: rgba(125, 125, 250, 0.8);
+        background-color: transparent;
+        color: rgba(125, 125, 250, 0.8);
       }
     }
 
@@ -31,7 +32,8 @@
 
       &:hover,
       &:focus {
-        background-color: rgba(235, 10, 10, 0.8);
+        background-color: transparent;
+        color: rgba(125, 125, 250, 0.8);
       }
     }
   }

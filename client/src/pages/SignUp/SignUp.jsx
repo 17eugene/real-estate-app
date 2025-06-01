@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signUpFormSchema } from "../../utils/formValidationSchema";
 import { userOperations } from "../../redux/user/user-operations";
 import Button from "../../components/ui/Button/Button";
 import FormInput from "../../components/ui/FormInput/FormInput";
@@ -12,33 +15,37 @@ import { IoEyeOff } from "react-icons/io5";
 import styles from "./SignUp.module.scss";
 
 const SignUp = () => {
-  const [formValue, setFormValue] = useState({});
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
-  const inputHandleChange = (e) => {
-    setFormValue({
-      ...formValue,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(signUpFormSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await dispatch(userOperations.signup(formValue));
-
-    if (result.type.includes("fulfilled")) {
-      e.target.reset();
+  const onFormSubmit = (data) => {
+    dispatch(userOperations.signup(data));
+    if (!error) {
+      reset();
       navigate("/signin", { replace: true });
     }
   };
 
   const showPasswordClick = () => {
-    setPasswordVisible(!passwordVisible);
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -49,56 +56,63 @@ const SignUp = () => {
           <p>{error}</p>
         </div>
       )}
-      <form onSubmit={handleSubmit} className={styles.signForm}>
-        <div>
+      <form onSubmit={handleSubmit(onFormSubmit)} className={styles.signForm}>
+        <div className={styles.inputWrapper}>
           <FormInput
             placeholder="Username"
             type="text"
             id="user"
             name="username"
-            onChange={inputHandleChange}
+            {...register("username")}
           />
           <BiSolidUser className={styles.icon} />
+          {errors.username && (
+            <p className={styles.validationError}>{errors.username.message}</p>
+          )}
         </div>
-        <div>
+        <div className={styles.inputWrapper}>
           <FormInput
             placeholder="E-mail"
             type="text"
             id="email"
             name="email"
-            onChange={inputHandleChange}
+            {...register("email")}
           />
           <MdEmail className={styles.icon} />
+          {errors.email && (
+            <p className={styles.validationError}>{errors.email.message}</p>
+          )}
         </div>
-        <div>
+        <div className={styles.inputWrapper}>
           <FormInput
             placeholder="Password"
-            type={passwordVisible ? "text" : "password"}
+            type={isPasswordVisible ? "text" : "password"}
             id="password"
             name="password"
-            onChange={inputHandleChange}
+            {...register("password")}
           />
-          {passwordVisible ? (
+          {isPasswordVisible ? (
             <IoEye onClick={showPasswordClick} className={styles.icon} />
           ) : (
             <IoEyeOff onClick={showPasswordClick} className={styles.icon} />
+          )}
+          {errors.password && (
+            <p className={styles.validationError}>{errors.password.message}</p>
           )}
         </div>
 
         <Button
           loading={loading}
-          disabled={
-            loading ||
-            !formValue?.username?.trim() ||
-            !formValue?.email?.trim() ||
-            !formValue?.password?.trim()
-          }
+          disabled={loading}
           text="Sign Up"
           type="submit"
         />
         <OAuth />
         <p>
-          Have an account? <Link to="/signin">Sign In</Link>
+          Have an account?{" "}
+          <Link to="/signin" className={styles.link}>
+            Sign In
+          </Link>
         </p>
       </form>
     </div>

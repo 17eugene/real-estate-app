@@ -5,11 +5,12 @@ const getAll = createAsyncThunk(
   async ({ page, limit, type, filterQueries }, { rejectWithValue }) => {
     let URL = `http://localhost:2222/api/listing/all?page=${page}&limit=${limit}&type=${type}`;
 
-    console.log(filterQueries);
-
     for (let query in filterQueries) {
-      if (filterQueries[query] || filterQueries[query] === false) {
-        console.log(filterQueries[query]);
+      if (
+        filterQueries[query] &&
+        filterQueries[query] !== null &&
+        filterQueries[query] !== "null"
+      ) {
         URL = URL + `&${query}=${filterQueries[query]}`;
       }
     }
@@ -30,6 +31,31 @@ const getAll = createAsyncThunk(
   }
 );
 
+const getSearchedListings = createAsyncThunk(
+  "listing/getSearchedListings",
+  async ({ query, page, limit }, { rejectWithValue }) => {
+    const response = await fetch(
+      `http://localhost:2222/api/listing?page=${page}&limit=${limit}&searchQuery=${query}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+
+    if (response.status !== 200) {
+      const data = rejectWithValue(await response.json());
+      console.log(data);
+      return data;
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+);
+
 const create = createAsyncThunk(
   "listing/create",
   async (credentials, { rejectWithValue }) => {
@@ -44,21 +70,19 @@ const create = createAsyncThunk(
 
     if (response.status !== 200) {
       const data = rejectWithValue(await response.json());
-      console.log(data);
       return data;
     }
 
     const data = await response.json();
-    console.log(data);
     return data;
   }
 );
 
-const getUserListings = createAsyncThunk(
-  "listing/getUserListings",
-  async (id, { rejectWithValue }) => {
+const getOwnListings = createAsyncThunk(
+  "listing/getOwnListings",
+  async (userId, { rejectWithValue }) => {
     const response = await fetch(
-      `http://localhost:2222/api/user/listings/${id}`,
+      `http://localhost:2222/api/listing/listings/${userId}`,
       {
         method: "GET",
         credentials: "include",
@@ -69,6 +93,29 @@ const getUserListings = createAsyncThunk(
     );
 
     if (response.status !== 201) {
+      const data = rejectWithValue(await response.json());
+      return data;
+    }
+
+    const data = await response.json();
+    return data;
+  }
+);
+
+const getAuthorsListings = createAsyncThunk(
+  "listing/getAuthorsListings",
+  async (authorId, { rejectWithValue }) => {
+    const response = await fetch(
+      `http://localhost:2222/api/listing/listingsByAuthor/${authorId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+
+    if (response.status !== 200) {
       const data = rejectWithValue(await response.json());
       return data;
     }
@@ -123,22 +170,27 @@ const getListing = createAsyncThunk(
 );
 
 const updateListing = createAsyncThunk(
-  "listing/update",
-  async (credentials, { rejectWithValue }) => {
+  "listing/updateListing",
+  async ({ id, values }, { rejectWithValue }) => {
     const editedListingData = {
-      name: credentials.name,
-      description: credentials.description,
-      address: credentials.address,
-      type: credentials.type,
-      furnished: credentials.furnished,
-      petsAllowed: credentials.petsAllowed,
-      offer: credentials.offer,
-      bedrooms: credentials.bedrooms,
-      price: credentials.price,
-      photos: credentials.photos,
+      region: values.region,
+      settlement: values.settlement,
+      street: values.street,
+      houseNumber: values.houseNumber,
+      description: values.description,
+      type: values.type,
+      furnished: values.furnished,
+      petsAllowed: values.petsAllowed,
+      parking: values.parking,
+      gatedCommunity: values.gatedCommunity,
+      floor: values.floor,
+      squareMeters: values.squareMeters,
+      bedrooms: values.bedrooms,
+      price: values.price,
+      photos: values.photos,
     };
     const response = await fetch(
-      `http://localhost:2222/api/listing/update/${credentials.id}`,
+      `http://localhost:2222/api/listing/update/${id}`,
       {
         method: "PUT",
         headers: {
@@ -159,11 +211,45 @@ const updateListing = createAsyncThunk(
   }
 );
 
+const updateListingFiles = createAsyncThunk(
+  "listing/updateListingFiles",
+  async ({ id, values }, { rejectWithValue }) => {
+    const updatedFilesData = {
+      photos: values,
+    };
+
+    const response = await fetch(
+      `http://localhost:2222/api/listing/updateFiles/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(updatedFilesData),
+      }
+    );
+
+    if (response.status !== 200) {
+      const data = rejectWithValue(await response.json());
+      console.log(data);
+      // return data;
+    }
+
+    const data = await response.json();
+    console.log(data);
+    // return data;
+  }
+);
+
 export const listingOperations = {
   getAll,
   create,
-  getUserListings,
+  getOwnListings,
+  getAuthorsListings,
   deleteListing,
   updateListing,
   getListing,
+  updateListingFiles,
+  getSearchedListings,
 };

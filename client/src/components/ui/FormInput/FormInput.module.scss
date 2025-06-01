@@ -1,0 +1,32 @@
+@import "../../../variables.scss";
+
+.textInput {
+  height: 50px;
+  width: 400px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 1rem;
+  border-radius: $primaryBorderRadius;
+  outline: none;
+  border: 1px solid $lightGrey;
+  color: #000;
+  font-size: 1rem;
+  font-family: "Oswald";
+
+  &::placeholder {
+    opacity: 0.35;
+  }
+
+  &:focus {
+    outline: 1px solid $blueColor;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .textInput {
+    width: 100%;
+    min-width: 280px;
+    height: 65px;
+    font-size: 1.25rem;
+  }
+}

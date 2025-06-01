@@ -3,13 +3,16 @@ const { User } = require("../../models");
 const update = async (req, res, next) => {
   const userId = req.params.id;
 
-  if (req.user.id !== userId) {
-    const error = new Error("Forbidden");
-    error.status = 403;
-    throw error;
-  }
+  console.log(userId);
+  console.log(req.user.id);
 
   try {
+    if (req.user.id !== userId) {
+      const error = new Error("Forbidden");
+      error.status = 403;
+      throw error;
+    }
+
     const user = await User.findByIdAndUpdate(userId, req.body, { new: true });
 
     if (!user) {

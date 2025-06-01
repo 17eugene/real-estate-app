@@ -1,24 +1,50 @@
 const { Schema, model } = require("mongoose");
 
+const geolocationSchema = Schema({
+  lat: {
+    type: Number,
+  },
+
+  lng: {
+    type: Number,
+  },
+});
+
 const listingSchema = Schema(
   {
-    name: {
+    region: {
       type: String,
-      minLength: 10,
-      maxLengthL: 120,
-      required: [true, "Name is required"],
+      required: [true, "Region is required"],
+      trim: true,
+    },
+
+    settlement: {
+      type: String,
+      minLength: 2,
+      maxLengthL: 100,
+      required: [true, "Settlement is required"],
+      trim: true,
+    },
+
+    street: {
+      type: String,
+      trim: true,
+    },
+
+    houseNumber: {
+      type: String,
+      trim: true,
+    },
+
+    coordinates: {
+      type: geolocationSchema,
     },
 
     description: {
       type: String,
-      minLength: 30,
-      maxLength: 500,
+      maxLength: 1000,
       required: [true, "Description is required"],
-    },
-
-    address: {
-      type: String,
-      required: [true, "Address is required"],
+      trim: true,
     },
 
     type: {
@@ -38,7 +64,16 @@ const listingSchema = Schema(
       max: 10,
     },
 
-    "pets allowed": {
+    squareMeters: {
+      type: Number,
+      min: 20,
+    },
+
+    floor: {
+      type: Number,
+    },
+
+    petsAllowed: {
       type: Boolean,
     },
 
@@ -46,23 +81,39 @@ const listingSchema = Schema(
       type: Boolean,
     },
 
-    offer: {
+    parking: {
       type: Boolean,
     },
 
+    gatedCommunity: {
+      type: Boolean,
+    },
+
+    sequenceNumber: {
+      type: Number,
+      required: true,
+    },
+
     photos: {
-      type: Array,
+      type: [{ url: { type: String }, _id: { type: String } }],
       required: [true, "At least one photo requred"],
     },
 
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: "User",
     },
   },
   { timestamps: true, versionKey: false }
 );
 
+listingSchema.index({
+  region: "text",
+  settlement: "text",
+  street: "text",
+  type: "text",
+});
+
 const Listing = model("Listing", listingSchema);
 
-module.exports = Listing;
+module.exports = { Listing };

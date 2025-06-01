@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
-import { transformPriceRangeToString } from "../../../utils/transformPriceRange";
+import { printSelectedPriceRange } from "../../../utils/printSelectedPriceRange";
 import styles from "./FilterButton.module.scss";
 
-const FilterButton = ({ filter, selectFilterHandler, selectedFilter }) => {
-  const { price, bedrooms } = useSelector((state) => state.filter);
-
+const FilterButton = ({
+  filter,
+  selectFilterHandler,
+  selectedFilter,
+  priceRange,
+  bedrooms,
+}) => {
   return (
     <div
       className={
@@ -15,8 +18,8 @@ const FilterButton = ({ filter, selectFilterHandler, selectedFilter }) => {
       onClick={() => selectFilterHandler(filter.name)}
     >
       <p>
-        {filter.name === "price" && (price?.minimum || price?.maximum)
-          ? transformPriceRangeToString(price?.minimum, price?.maximum)
+        {filter.name === "price"
+          ? printSelectedPriceRange(priceRange, filter.name)
           : filter.name === "bedrooms" && bedrooms && bedrooms !== "any"
           ? `Bedrooms: ${bedrooms}`
           : filter.name}

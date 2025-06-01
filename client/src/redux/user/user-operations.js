@@ -21,6 +21,8 @@ const signup = createAsyncThunk(
   }
 );
 
+/*------------------------------------------------------------------------------------- */
+
 const signin = createAsyncThunk(
   "user/signin",
   async (credentials, { rejectWithValue }) => {
@@ -39,9 +41,12 @@ const signin = createAsyncThunk(
     }
 
     const data = await response.json();
+    console.log(data);
     return data;
   }
 );
+
+/*------------------------------------------------------------------------------------- */
 
 const googleAuth = createAsyncThunk(
   "user/signinWithGoogle",
@@ -64,16 +69,40 @@ const googleAuth = createAsyncThunk(
   }
 );
 
+/*------------------------------------------------------------------------------------- */
+
+const getCurrentUser = createAsyncThunk(
+  "user/refresh",
+  async (_, { rejectWithValue }) => {
+    const response = await fetch("http://localhost:2222/api/user/current", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (response.status !== 200) {
+      const data = rejectWithValue({ error_message: "User not authorized" });
+      return data;
+    }
+
+    const data = await response.json();
+    return data;
+  }
+);
+
+/*------------------------------------------------------------------------------------- */
+
 const update = createAsyncThunk(
   "user/update",
   async (credentials, { rejectWithValue }) => {
     const editedUserData = {
       username: credentials.username,
-      // email: credentials.email,
       avatar: credentials.avatar,
     };
     const response = await fetch(
-      `http://localhost:2222/api/user/update/${credentials.id}`,
+      `http://localhost:2222/api/user/update/${credentials.userId}`,
       {
         method: "PUT",
         headers: {
@@ -94,6 +123,8 @@ const update = createAsyncThunk(
   }
 );
 
+/*------------------------------------------------------------------------------------- */
+
 const deleteUser = createAsyncThunk(
   "user/delete",
   async (id, { rejectWithValue }) => {
@@ -112,6 +143,8 @@ const deleteUser = createAsyncThunk(
   }
 );
 
+/*------------------------------------------------------------------------------------- */
+
 const signout = createAsyncThunk("auth/signout", async () => {
   await fetch("http://localhost:2222/api/auth/signout", {
     method: "POST",
@@ -123,6 +156,7 @@ export const userOperations = {
   signup,
   signin,
   googleAuth,
+  getCurrentUser,
   update,
   deleteUser,
   signout,

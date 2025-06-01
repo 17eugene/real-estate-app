@@ -3,11 +3,43 @@ const { Listing } = require("../../models");
 const getAll = async (req, res, next) => {
   try {
     let page = Number(req.query.page) || 1;
-    let limit = Number(req.query.limit) || 5;
-    let type = req.query.type;
-    const { price, furnished, pets, bedrooms } = req.query;
+    let limit = Number(req.query.limit) || 15;
 
-    let listings = [];
+    const filters = {
+      type: req.query.type,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+      exactPrice: req.query.exactPrice,
+      bedrooms: req.query.bedrooms,
+      petsAllowed: req.query.petsAllowed,
+      furnished: req.query.furnished,
+      parking: req.query.parking,
+    };
+
+    const searchCriteria = {};
+
+    if (filters.type && filters.type !== "all")
+      searchCriteria.type = filters.type;
+    if (filters.bedrooms && filters.bedrooms.length > 1) {
+      searchCriteria.bedrooms = { $gte: parseInt(filters.bedrooms) };
+    } else if (filters.bedrooms) {
+      searchCriteria.bedrooms = filters.bedrooms;
+    }
+    if (filters.petsAllowed) searchCriteria.petsAllowed = filters.petsAllowed;
+    if (filters.furnished) searchCriteria.furnished = filters.furnished;
+    if (filters.parking) searchCriteria.parking = filters.parking;
+    if (filters.exactPrice)
+      searchCriteria.price = parseFloat(filters.exactPrice);
+    if (filters.minPrice || filters.maxPrice) {
+      searchCriteria.price = {};
+      if (filters.minPrice)
+        searchCriteria.price = { $gte: parseFloat(filters.minPrice) };
+      if (filters.maxPrice)
+        searchCriteria.price = {
+          ...searchCriteria.price,
+          $lte: parseFloat(filters.maxPrice),
+        };
+    }
 
     let skip = (page - 1) * limit;
 
@@ -17,13 +49,12 @@ const getAll = async (req, res, next) => {
       throw error;
     }
 
-    listings = await Listing.find({ type }, null, {
-      skip,
-      limit,
-    });
+    const listings = await Listing.find(searchCriteria).skip(skip).limit(limit);
+
+    console.log(listings);
 
     /*--------------------PAGINATION---------------------------*/
-    const docs = await Listing.countDocuments();
+    const docs = await Listing.countDocuments(searchCriteria);
 
     const info = {
       total: docs,

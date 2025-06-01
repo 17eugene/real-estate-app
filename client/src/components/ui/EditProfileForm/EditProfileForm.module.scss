@@ -14,7 +14,8 @@
 
     &:hover,
     &:focus {
-      background-color: rgba(125, 125, 250, 0.8);
+      color: rgba(125, 125, 250, 0.8);
+      background-color: transparent;
     }
 
     &:disabled {
@@ -38,5 +39,22 @@
   &:focus {
     fill: rgba(0, 0, 0, 0.95);
     scale: 1.1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .editForm {
+    padding-right: 0;
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .editForm > input {
+    min-width: 100%;
+  }
+
+  .closeIcon {
+    width: 2.25rem;
+    height: 2.25rem;
   }
 }

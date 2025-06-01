@@ -1,0 +1,79 @@
+@import "../../variables.scss";
+
+.messagingElement {
+  padding: 1rem 0.5rem;
+  border-top: 1px solid $lightGrey;
+  cursor: pointer;
+  transition: all 0.15s linear;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  gap: 2rem;
+
+  &:hover {
+    background-color: $lightGrey;
+  }
+
+  & .listingInfo p {
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & .listingTypeWrapper {
+    margin-bottom: 1rem;
+  }
+
+  & > .listingInfo > div {
+    display: flex;
+    gap: 1rem;
+    font-size: $secondaryTitleTextSize;
+    text-transform: capitalize;
+  }
+
+  .deleteIcon {
+    width: 35px;
+    height: 45px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: $redColor;
+  }
+
+  .chatWithInfo {
+    margin-top: auto;
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .messagingElement {
+    flex-direction: column;
+
+    & .listingInfo {
+      width: 100%;
+
+      & .listingTypeWrapper {
+        display: none;
+      }
+    }
+
+    & .listingInfo p {
+      max-width: 85%;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .messagingElement {
+    padding-left: 0.5;
+    padding-right: 0.5;
+
+    & .listingInfo p {
+      font-size: 1rem;
+      max-width: 220px;
+    }
+  }
+}

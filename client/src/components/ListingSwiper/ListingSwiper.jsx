@@ -34,12 +34,11 @@ function ListingSwiper({ isOpenedSwiper, photos, setIsOpenedSwiper }) {
         <Swiper
           style={{
             "--swiper-navigation-color": "#2bb",
-            "--swiper-pagination-color": "#2bb",
+            "--swiper-pagination-color": "#fff",
             "--swiper-pagination-bullet-width": "12px",
             "--swiper-pagination-bullet-height": "12px",
             "--swiper-pagination-bullet-inactive-color": "#fff",
             "--swiper-pagination-bullet-inactive-opacity": "0.3",
-            "--swiper-pagination-bullet-inactive-width": "6px",
           }}
           modules={[
             Navigation,
@@ -64,12 +63,12 @@ function ListingSwiper({ isOpenedSwiper, photos, setIsOpenedSwiper }) {
           className="mainSwiper"
         >
           {photos.map((photo, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={photo._id || index} className="swiper-slide-main">
               <img
-                src={photo}
+                src={photo.url}
                 alt=""
                 width="100%"
-                height="450"
+                // height="450"
                 loading="lazy"
                 className="largePhoto"
               />
@@ -86,9 +85,9 @@ function ListingSwiper({ isOpenedSwiper, photos, setIsOpenedSwiper }) {
             modules={[FreeMode, Navigation, Thumbs]}
           >
             {photos.map((photo, index) => (
-              <SwiperSlide key={index}>
+              <SwiperSlide key={photo._id || index}>
                 <img
-                  src={photo}
+                  src={photo.url}
                   alt=""
                   width="100%"
                   height="130"

@@ -1,42 +1,103 @@
 import { z } from "zod";
 
-export const listingSchema = z.object({
-  name: z
+export const signUpFormSchema = z.object({
+  username: z
     .string({
-      required_error: "Required field",
+      required_error: "The username is required",
+      invalid_type_error: "Must be a string",
     })
-    .nonempty({ message: "Required fileld" })
-    .min(10, { message: "Must be minimum 10 characters long" })
-    .max(50, { message: "Must be no longer 50 characters" }),
+    .trim()
+    .min(2, { message: "Username cannot be shorter than 2 characters" })
+    .max(20, { message: "Username cannot be longer than 20 characters" }),
+
+  email: z
+    .string({ required_error: "The e-mail is required" })
+    .email({ message: "Invalid e-mail address" })
+    .trim(),
+
+  password: z
+    .string({ required_error: "Psssword is required" })
+    .trim()
+    .min(4, { message: "Password cannot be shorter than 4 characters" })
+    .max(20, { message: "Password cannot be longer than 20 characters" })
+    .regex(/^[a-zA-Z0-9]+$/, {
+      message: "The password can only contain letters and(or) numbers ",
+    }),
+});
+
+export const signInFormSchema = z.object({
+  email: z
+    .string({ required_error: "The email is required" })
+    .email({ message: "Invalid e-mail address" })
+    .trim(),
+
+  password: z
+    .string()
+    .trim()
+    .min(1, { message: "The password is required" })
+    .regex(/^[a-zA-Z0-9]+$/, {
+      message: "The password can only contain letters and(or) numbers ",
+    }),
+});
+
+export const searchFormSchema = z.object({
+  searchQuery: z
+    .string()
+    .trim()
+    .max(30, {
+      message: "The query string cannot be longer than 30 characters",
+    }),
+});
+
+export const listingSchema = z.object({
+  region: z
+    .string({
+      required_error: "Region is required",
+    })
+    .toLowerCase()
+    .includes("а", { message: "Required field" }),
+
+  settlement: z
+    .string({ required_error: "Description is required" })
+    .trim()
+    .nonempty({ message: "Required fileld" }),
 
   description: z
     .string({ required_error: "Description is required" })
     .nonempty({ message: "Required fileld" })
-    .min(30, { message: "Must be minimum 30 characters long" })
-    .max(500, { message: "Must be no longer 500 characters" }),
+    .trim()
+    .max(2000, { message: "Must be no longer 500 characters" }),
 
-  address: z
-    .string({ required_error: "Address is required" })
-    .nonempty({ message: "Required fileld" })
-    .min(7, { message: "Must be minimum 7 characters long" })
-    .max(60, { message: "Must be no longer 60 characters" }),
+  street: z.string().trim(),
+  houseNumber: z.string().trim(),
 
-  type: z.string({ required_error: "Type is required" }),
+  type: z
+    .string({ required_error: "Type is required" })
+    .length(4, { message: "Select avaliable option" }),
 
-  furnished: z.boolean(),
-  "pets allowed": z.boolean(),
-  offer: z.boolean(),
+  furnished: z.boolean().nullable(),
+  petsAllowed: z.boolean().nullable(),
+  parking: z.boolean().nullable(),
+  gatedCommunity: z.boolean().nullable(),
 
   bedrooms: z
-    .number({ invalid_type_error: "At least 1 required" })
-    .positive({ message: "Must be positive value" })
-    .int({ message: "Value must be an integer" })
-    .gte(1, { message: "At least 1 required" })
+    .number({ invalid_type_error: "Number value required" })
+    .nonnegative({ message: "Must be positive value or 0" })
+    .int({ message: "Integer value required" })
     .lte(50, { message: "Maximun value is 50" }),
 
   price: z
-    .number({ invalid_type_error: "Can't be empty" })
-    .positive({ message: "Must be positive value" }),
+    .number({ invalid_type_error: "Only numbers required" })
+    .nonnegative({ message: "Must be positive value or 0" }),
+
+  squareMeters: z
+    .number({ invalid_type_error: "Number value required" })
+    .positive({ message: "Positive value required" })
+    .gte(1, { message: "Minimum value is 1" }),
+
+  floor: z
+    .number({ invalid_type_error: "Only numbers required" })
+    .int({ message: "Integer value required" }),
 
   files: z.any(),
 });

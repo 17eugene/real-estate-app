@@ -1,0 +1,72 @@
+@import "../../variables.scss";
+
+.chatWrapper {
+  width: 350px;
+  min-width: 280px;
+  background-color: $lightGrey;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: $primaryBorderRadius;
+  position: relative;
+
+  & > .interlocutorInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  & > .closeIcon {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    color: #000;
+    transition: all 0.15s linear;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  & > .chatContainer {
+    background-color: $inputColor;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 0.5rem;
+    border-radius: $primaryBorderRadius;
+    padding: 0.5rem;
+    overflow-y: auto;
+  }
+
+  & > form {
+    display: flex;
+    gap: 0.5rem;
+
+    & input {
+      min-width: 75%;
+      height: 48px;
+      padding: 0.25rem;
+      font-size: 1rem;
+    }
+
+    & > button {
+      background-color: $blueColor;
+
+      &:hover {
+        background-color: #fff;
+        color: $blueColor;
+        border: none;
+        outline: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .chatWrapper {
+    width: 80vw;
+  }
+}

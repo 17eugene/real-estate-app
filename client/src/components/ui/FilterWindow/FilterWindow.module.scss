@@ -1,12 +1,8 @@
 @import "../../../variables.scss";
 
 .filterWindow {
-  border-radius: $primaryBorderRadius;
-  min-width: 300px;
+  min-width: 280px;
   max-height: 450px;
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.75);
-  position: absolute;
-  background-color: rgb(247, 249, 247);
 
   & .header {
     background-color: $lightGrey;
@@ -24,5 +20,45 @@
   & .btnContainer {
     display: flex;
     padding: 1rem;
+
+    & button {
+      background-color: $primaryButtonColor;
+      color: #fff;
+      border: none;
+      outline: none;
+      font-size: $regularTextSize;
+      border-radius: $primaryBorderRadius;
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s linear;
+
+      &:hover {
+        background-color: transparent;
+        color: $blueColor;
+        outline: 1px solid #a3baba;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .filterWindow {
+    min-height: 0;
+
+    & .header {
+      padding-left: 1.5rem;
+      padding-right: 0.5rem;
+
+      & + div {
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+      }
+    }
+
+    & .btnContainer {
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
   }
 }

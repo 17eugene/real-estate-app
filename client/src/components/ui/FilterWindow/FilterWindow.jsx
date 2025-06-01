@@ -1,7 +1,7 @@
 import Button from "../Button/Button";
-import PriceFilter from "../Filter.PriceFilter/PriceFilter";
-import BedroomsFilter from "../Filter.BedroomsFilter/BedroomsFilter";
-import MoreFilter from "../Filter.MoreFilter/MoreFilter";
+import FilterByBedrooms from "../FilterByBedrooms/FilterByBedrooms";
+import FilterByPrice from "../FilterByPrice/FilterByPrice";
+import FilterByOthers from "../FilterByOthers/FilterByOthers";
 /*------------------------------------------*/
 import styles from "./FilterWindow.module.scss";
 
@@ -14,9 +14,9 @@ const FilterWindow = ({
   onApplyClick,
   exactMatchChangeHandler,
   exactMatchBedrooms,
-  onBedroomsNumberChangeHandler,
-  moreFilterOptionsChangeHandler,
-  moreFilterOptions,
+  bedrooms,
+  setFilters,
+  moreFilters,
 }) => {
   return (
     <div className={styles.filterWindow}>
@@ -25,24 +25,22 @@ const FilterWindow = ({
       </div>
       <>
         {filterName === "price" && (
-          <PriceFilter register={register} errors={errors} />
+          <FilterByPrice register={register} errors={errors} />
         )}
       </>
       <>
         {filterName === "bedrooms" && (
-          <BedroomsFilter
+          <FilterByBedrooms
             exactMatchChangeHandler={exactMatchChangeHandler}
             exactMatchBedrooms={exactMatchBedrooms}
-            onBedroomsNumberChangeHandler={onBedroomsNumberChangeHandler}
+            bedrooms={bedrooms}
+            setFilters={setFilters}
           />
         )}
       </>
       <>
         {filterName === "more" && (
-          <MoreFilter
-            moreFilterOptionsChangeHandler={moreFilterOptionsChangeHandler}
-            moreFilterOptions={moreFilterOptions}
-          />
+          <FilterByOthers setFilters={setFilters} moreFilters={moreFilters} />
         )}
       </>
       <div className={styles.btnContainer}>
