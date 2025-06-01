@@ -98,8 +98,6 @@ const FilterSection = ({ isOpenedFilterSection, toggleFilterSection }) => {
     setValue("minimum", 0);
   }
 
-  console.log("AF", activeFilter);
-
   return (
     <div
       ref={ref}
