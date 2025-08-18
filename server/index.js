@@ -30,18 +30,6 @@ app.use("/api/listing", listingRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/location", locationRoutes);
 
-// io.on("connection", (socket) => {
-//   console.log(socket.connected);
-
-//   socket.on("create-room", (data) => {
-//     socket.join(data);
-//   });
-
-//   socket.on("send-message", (message) => {
-//     socket.broadcast.emit("receive-message", message);
-//   });
-// });
-
 app.use((_, res) => {
   res.status(404).json({ message: "Error 404: not found" });
 });
