@@ -1,5 +1,14 @@
+@import "../../variables.scss";
+
 .listingListWrapper {
-  padding: 3rem 0 4rem 0;
+  padding: 7rem 0 4rem 0;
+
+  & > p {
+    margin-bottom: 1.5rem;
+    font-size: $secondaryTitleTextSize;
+    font-weight: 400;
+    padding-left: 1rem;
+  }
 
   & > .listingList {
     display: flex;

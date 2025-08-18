@@ -12,10 +12,5 @@ router.delete("/delete/:id", authenticate, listingControllers.deleteListing);
 router.put("/update/:id", authenticate, listingControllers.updateListing);
 router.get("/:id", listingControllers.getListing);
 router.get("/", listingControllers.getSearchedListings);
-router.patch(
-  "/updateFiles/:id",
-  authenticate,
-  listingControllers.updateListingFiles
-);
 
 module.exports = router;

@@ -14,6 +14,7 @@ const getAll = async (req, res, next) => {
       petsAllowed: req.query.petsAllowed,
       furnished: req.query.furnished,
       parking: req.query.parking,
+      gatedCommunity: req.query.gatedCommunity,
     };
 
     const searchCriteria = {};
@@ -28,6 +29,8 @@ const getAll = async (req, res, next) => {
     if (filters.petsAllowed) searchCriteria.petsAllowed = filters.petsAllowed;
     if (filters.furnished) searchCriteria.furnished = filters.furnished;
     if (filters.parking) searchCriteria.parking = filters.parking;
+    if (filters.gatedCommunity)
+      searchCriteria.gatedCommunity = filters.gatedCommunity;
     if (filters.exactPrice)
       searchCriteria.price = parseFloat(filters.exactPrice);
     if (filters.minPrice || filters.maxPrice) {
@@ -50,8 +53,6 @@ const getAll = async (req, res, next) => {
     }
 
     const listings = await Listing.find(searchCriteria).skip(skip).limit(limit);
-
-    console.log(listings);
 
     /*--------------------PAGINATION---------------------------*/
     const docs = await Listing.countDocuments(searchCriteria);

@@ -16,7 +16,7 @@
 
 @media screen and (max-width: 768px) {
   .listingListWrapper {
-    padding-top: 4.5rem;
+    padding-top: 7rem;
   }
 
   .listingList {
@@ -28,20 +28,22 @@
 
   .filterIconWrapper {
     position: absolute;
-    top: 0.5rem;
+    top: 3.85rem;
     left: 0.55rem;
-    border-radius: 50%;
-    width: 3.25rem;
-    height: 3.25rem;
+    border-radius: 10%;
+    background-color: $lightGray;
+    width: 2.75rem;
+    height: 2.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem;
+    padding: 0.5rem;
     cursor: pointer;
     transition: all 0.15s linear;
 
     &:hover {
-      background-color: $lightGrey;
+      background-color: $lightBlueColor;
+      box-shadow: 0 0 7px #000;
     }
 
     & > .filterIcon {

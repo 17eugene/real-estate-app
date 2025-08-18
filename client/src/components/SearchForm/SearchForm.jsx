@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { searchFormSchema } from "../../utils/formValidationSchema";
+import { searchFormSchema } from "../../formValidationSchema";
 import { setQueryString } from "../../redux/listing/listingSlice";
 import FormInput from "../ui/FormInput/FormInput";
 import { IoSearchSharp } from "react-icons/io5";

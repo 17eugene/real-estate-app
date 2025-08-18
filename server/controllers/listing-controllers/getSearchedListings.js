@@ -13,8 +13,6 @@ const getSearchedListings = async (req, res, next) => {
     throw error;
   }
 
-  console.log(query);
-
   try {
     const listings = await Listing.find({ $text: { $search: query } })
       .skip(skip)

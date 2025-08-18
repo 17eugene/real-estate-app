@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpFormSchema } from "../../utils/formValidationSchema";
+import { signUpFormSchema } from "../../formValidationSchema";
 import { userOperations } from "../../redux/user/user-operations";
 import Button from "../../components/ui/Button/Button";
 import FormInput from "../../components/ui/FormInput/FormInput";

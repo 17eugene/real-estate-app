@@ -2,7 +2,7 @@
 
 .messagingElement {
   padding: 1rem 0.5rem;
-  border-top: 1px solid $lightGrey;
+  border-top: 1px solid $lightGray;
   cursor: pointer;
   transition: all 0.15s linear;
   display: flex;
@@ -12,7 +12,7 @@
   gap: 2rem;
 
   &:hover {
-    background-color: $lightGrey;
+    background-color: $lightGray;
   }
 
   & .listingInfo p {

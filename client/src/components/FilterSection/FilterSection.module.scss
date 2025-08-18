@@ -5,6 +5,7 @@
   gap: 1rem;
   border-bottom: 1px solid #a3baba;
   padding: 1rem;
+  margin-top: 90px;
 
   & .closeBtn {
     display: none;
@@ -49,7 +50,7 @@
 }
 @media (hover: hover) {
   .btnContainer button:last-child:hover {
-    background-color: $lightGrey;
+    background-color: $lightGray;
   }
 }
 
@@ -61,11 +62,11 @@
     transform: translateX(-150%);
     position: fixed;
     left: 0;
-    top: 0px;
+    top: -90px;
     padding-top: 3.5rem;
     background-color: $lightBlueColor;
     z-index: 30;
-    transition: all 0.15s linear;
+    transition: all 0.2s linear;
     opacity: 0;
 
     &.active {

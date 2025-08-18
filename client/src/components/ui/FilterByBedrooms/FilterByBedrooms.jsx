@@ -1,4 +1,4 @@
-import { bedroomsNumberVariants } from "../../../utils/listingOptions";
+import { bedroomsNumberVariants } from "../../../listingOptions";
 import styles from "./FilterByBedrooms.module.scss";
 
 const FilterByBedrooms = ({

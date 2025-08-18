@@ -50,6 +50,22 @@ const FilterByOthers = ({ setFilters, moreFilters }) => {
           <span className={styles.checkmark}></span>
         </label>
       </div>
+
+      <div className={styles.checkboxContainer}>
+        <input
+          type="checkbox"
+          id="gatedCommunity"
+          name="gatedCommunity"
+          checked={moreFilters.gatedCommunity === "true"}
+          onChange={(e) =>
+            setFilters({ ...moreFilters, gatedCommunity: e.target.checked })
+          }
+        />
+        <label htmlFor="gatedCommunity">
+          Gated community
+          <span className={styles.checkmark}></span>
+        </label>
+      </div>
     </div>
   );
 };

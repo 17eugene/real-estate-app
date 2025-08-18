@@ -46,7 +46,7 @@
     width: 300px;
     height: fit-content;
     background-color: $lightBlueColor;
-    top: 70px;
+    top: 0px;
     right: 0rem;
     border-radius: $primaryBorderRadius;
     padding-top: 3.5rem;
@@ -58,7 +58,7 @@
 
     & > .navMenu__list {
       & > li {
-        border-bottom: 1px solid $lightGrey;
+        border-bottom: 1px solid $lightGray;
         text-transform: uppercase;
         font-size: $secondaryTitleTextSize;
         transition: all 0.15s linear;
@@ -67,7 +67,7 @@
         &:hover,
         &:focus {
           box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
-          background-color: $lightGrey;
+          background-color: $lightGray;
         }
       }
 

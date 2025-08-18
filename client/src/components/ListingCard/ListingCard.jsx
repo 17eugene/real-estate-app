@@ -26,11 +26,14 @@ const ListingCard = ({ listing }) => {
           <div className={styles.listingTypeWrapper}>
             <ListingTypeLabel listingType={listing.type} />
           </div>
-          <div className={styles.locationWrapper}>
-            <IoLocation /> {listing.address}
-            <p>
-              {listing?.settlement}, {listing?.street}, {listing?.houseNumber}
+          <div className={styles.locationDataWrapper}>
+            <p className={styles.listingAddress}>
+              {listing.street}, {listing.houseNumber}
             </p>
+            <div className={styles.listingSettlement}>
+              <IoLocation /> {listing.address}
+              <p>{listing?.settlement}</p>
+            </div>
           </div>
           <ul className={styles.iconsList}>
             {listing.bedrooms ? (

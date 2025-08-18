@@ -43,6 +43,7 @@ const Layout = ({ type }) => {
           furnished: moreFilters?.furnished,
           petsAllowed: moreFilters?.petsAllowed,
           parking: moreFilters?.parking,
+          gatedCommunity: moreFilters?.gatedCommunity,
           bedrooms: encodeURIComponent(bedrooms),
         },
       })
@@ -59,6 +60,7 @@ const Layout = ({ type }) => {
     moreFilters.furnished,
     moreFilters.petsAllowed,
     moreFilters.parking,
+    moreFilters.gatedCommunity,
   ]);
 
   let pagesArray;

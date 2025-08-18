@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userOperations } from "../../redux/user/user-operations";
-import { signInFormSchema } from "../../utils/formValidationSchema";
+import { signInFormSchema } from "../../formValidationSchema";
 import Button from "../../components/ui/Button/Button";
 import FormInput from "../../components/ui/FormInput/FormInput";
 import OAuth from "../../components/OAuth/OAuth";
@@ -13,7 +13,6 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import styles from "../SignUp/SignUp.module.scss";
 
 const SignIn = () => {
-  // const [formValue, setFormValue] = useState({});
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const dispatch = useDispatch();

@@ -14,6 +14,7 @@ export function useListingFilters() {
     petsAllowed: searchParams.get("petsAllowed"),
     furnished: searchParams.get("furnished"),
     parking: searchParams.get("parking"),
+    gatedCommunity: searchParams.get("gatedCommunity"),
   };
   const searchQuery = searchParams.get("searchQuery");
 
@@ -63,6 +64,15 @@ export function useListingFilters() {
           params.set("parking", filter.parking);
         } else if (filter.parking === false || filter.parking === "false") {
           params.delete("parking");
+        }
+
+        if (filter.gatedCommunity) {
+          params.set("gatedCommunity", filter.gatedCommunity);
+        } else if (
+          filter.gatedCommunity === false ||
+          filter.gatedCommunity === "false"
+        ) {
+          params.delete("gatedCommunity");
         }
 
         if (filter.searchQuery) {

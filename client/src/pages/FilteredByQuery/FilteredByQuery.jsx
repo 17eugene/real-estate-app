@@ -49,6 +49,9 @@ const FilteredByQuery = () => {
   return (
     <Container>
       <div className={styles.listingListWrapper}>
+        <p>
+          Results found: <span>{total}</span>
+        </p>
         {listings?.length ? (
           <ul className={styles.listingList}>
             {listings.map((listing) => (

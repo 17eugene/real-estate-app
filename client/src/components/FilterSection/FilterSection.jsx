@@ -2,11 +2,8 @@ import { useState } from "react";
 /*----------------------------------------------------- */
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { minMaxPriceSchema } from "../../utils/formValidationSchema";
-import {
-  filterOptions,
-  bedroomsNumberVariants,
-} from "../../utils/listingOptions";
+import { minMaxPriceSchema } from "../../formValidationSchema";
+import { filterOptions, bedroomsNumberVariants } from "../../listingOptions";
 /*----------------------------------------------------- */
 import { useListingFilters } from "../../hooks/useListingFilters";
 import { transformPriceRangeQueryStr } from "../../utils/transformPriceRangeQueryStr";

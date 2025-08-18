@@ -1,4 +1,5 @@
 import Container from "../../components/Container/Container";
+import HeroSection from "../../components/HeroSection/HeroSection";
 import HomePageCard from "../../components/HomePageCard/HomePageCard";
 import { cardsContent } from "../../utils/homePageCardsContent";
 import styles from "./Home.module.scss";
@@ -7,6 +8,7 @@ const Home = () => {
   return (
     <>
       {/*FIRST SECTION */}
+      <HeroSection />
       <section>
         <Container>
           <div className={styles.sectionContent}>

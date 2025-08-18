@@ -13,11 +13,11 @@
   transition: all 0.2s linear;
 
   &:hover {
-    background-color: $lightGrey;
+    background-color: $lightGray;
   }
 
   &.active {
-    background-color: $lightGrey;
+    background-color: $lightGray;
   }
 
   & p {

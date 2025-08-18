@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
 .formWrapper {
-  padding: 3rem 0;
+  padding: 8rem 0;
   position: relative;
 }
 
@@ -97,7 +97,7 @@ textarea {
   resize: none;
 
   outline: none;
-  border: 1px solid $lightGrey;
+  border: 1px solid $lightGray;
   border-radius: $primaryBorderRadius;
 
   height: 8rem;
@@ -201,7 +201,7 @@ textarea {
 
 select {
   outline: none;
-  border: 1px solid $lightGrey;
+  border: 1px solid $lightGray;
   border-radius: $primaryBorderRadius;
   height: 40px;
   font-family: "Oswald", sans-serif;
@@ -233,7 +233,7 @@ select {
   margin-bottom: 1rem;
 
   & > .customInput {
-    outline: 1px solid $lightGrey;
+    outline: 1px solid $lightGray;
     color: #000;
     background-color: $inputColor;
     width: 200px;
@@ -275,7 +275,7 @@ select {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid $lightGrey;
+    border: 1px solid $lightGray;
     padding: 0.5rem 1rem;
     margin-bottom: 0.5rem;
 
