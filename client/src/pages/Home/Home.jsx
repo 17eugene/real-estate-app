@@ -1,7 +1,7 @@
 import Container from "../../components/Container/Container";
 import HeroSection from "../../components/HeroSection/HeroSection";
 import HomePageCard from "../../components/HomePageCard/HomePageCard";
-import { cardsContent } from "../../utils/homePageCardsContent";
+import { HOME_PAGE_CARDS_CONTENT } from "../../data/homePageCardsContent";
 import styles from "./Home.module.scss";
 
 const Home = () => {
@@ -28,7 +28,7 @@ const Home = () => {
       <section>
         <Container>
           <div className={styles.sectionContent}>
-            {cardsContent.map((card) => (
+            {HOME_PAGE_CARDS_CONTENT.map((card) => (
               <HomePageCard key={card.id} card={card} />
             ))}
           </div>

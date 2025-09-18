@@ -15,9 +15,7 @@ const ListingAuthorInfo = ({ setIsOpenedChat, listingId, toggleSidebar }) => {
     (state) => state.listing?.listingData.currentListing?.owner
   );
   const { userData } = useSelector((state) => state.user);
-  const { room, chatLoading, messageLoading } = useSelector(
-    (state) => state.chat
-  );
+  const { room, chatLoading } = useSelector((state) => state.chat);
 
   const onOpenChatHandler = async () => {
     if (!userData) {

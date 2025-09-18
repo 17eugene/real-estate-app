@@ -1,4 +1,4 @@
-export const cardsContent = [
+export const HOME_PAGE_CARDS_CONTENT = [
   {
     id: 1,
     imageURL:

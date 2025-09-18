@@ -1,4 +1,4 @@
-export const typeOptions = [
+export const TYPE_OPTIONS = [
   {
     value: "sell",
     id: 1,
@@ -9,7 +9,7 @@ export const typeOptions = [
   },
 ];
 
-export const checkboxOptions = [
+export const CHECKBOX_OPTIONS = [
   {
     name: "furnished",
     label: "furnished",
@@ -28,7 +28,7 @@ export const checkboxOptions = [
   },
 ];
 
-export const filterOptions = [
+export const FILTER_OPTIONS = [
   {
     name: "price",
     title: "price range",
@@ -43,7 +43,7 @@ export const filterOptions = [
   },
 ];
 
-export const bedroomsNumberVariants = [
+export const BEDROOM_NUMBER_OPTIONS = [
   {
     title: "any",
     matchTitle: "any",

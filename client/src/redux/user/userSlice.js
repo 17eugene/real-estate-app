@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userOperations } from "./user-operations";
-import { listingOperations } from "../listing/listing-operations";
 
 const initialState = {
   userData: null,
@@ -112,19 +111,6 @@ const userSlice = createSlice({
       .addCase(userOperations.signout.rejected, (state, _) => {
         state.loading = false;
       });
-    /*-----------------------------GET USER LISTINGS----------------------------------*/
-    // .addCase(listingOperations.getUserListings.pending, (state) => {
-    //   state.loading = true;
-    // })
-    // .addCase(listingOperations.getUserListings.fulfilled, (state, action) => {
-    //   state.loading = false;
-    //   state.error = null;
-    //   state.userListings = [...action.payload.data];
-    // })
-    // .addCase(listingOperations.getUserListings.rejected, (state, action) => {
-    //   state.loading = false;
-    //   console.log(action);
-    // });
   },
 });
 

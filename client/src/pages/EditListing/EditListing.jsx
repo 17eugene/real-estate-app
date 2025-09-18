@@ -9,7 +9,7 @@ import { addressOperations } from "../../redux/address/address-operations";
 import { useForm } from "react-hook-form";
 import { useNotifications } from "../../hooks/useNotifications";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
-import { typeOptions, checkboxOptions } from "../../listingOptions";
+import { TYPE_OPTIONS, CHECKBOX_OPTIONS } from "../../data/listingOptions";
 import { getAddressString } from "../../utils/getAddressString";
 import { listingSchema } from "../../formValidationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -389,7 +389,7 @@ const EditListing = () => {
             </div>
 
             <div className={styles.optionsWrapper}>
-              {checkboxOptions.map((option, index) => (
+              {CHECKBOX_OPTIONS.map((option, index) => (
                 <div className={styles.checkboxContainer} key={index}>
                   <input
                     {...register(option.name)}
@@ -416,7 +416,7 @@ const EditListing = () => {
               {...register("type")}
             >
               <option disabled>Select the type*</option>
-              {typeOptions.map((option) => (
+              {TYPE_OPTIONS.map((option) => (
                 <option key={option.id} value={option.value}>
                   {option.value}
                 </option>
@@ -504,7 +504,9 @@ const EditListing = () => {
               />
             </div>
 
-            {errors.photos && <p>{errors.photos.message}</p>}
+            {(errors.photos || firebaseError) && (
+              <p>{errors.photos.message || firebaseError}</p>
+            )}
 
             {uploadFilesWarning ? <p>{uploadFilesWarning}</p> : null}
 

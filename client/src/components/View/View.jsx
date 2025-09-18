@@ -12,9 +12,9 @@ import Pagination from "../Pagination/Pagination";
 /*----------------------------------------------- */
 import { LuFilter } from "react-icons/lu";
 /*----------------------------------------------- */
-import styles from "./Layout.module.scss";
+import styles from "./View.module.scss";
 
-const Layout = ({ type }) => {
+const View = ({ type }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isOpenedFilterSection, setIsOpenedFilterSection] = useState(false);
 
@@ -106,4 +106,4 @@ const Layout = ({ type }) => {
   );
 };
 
-export default Layout;
+export default View;

@@ -1,7 +1,7 @@
-import Layout from "../../components/Layout/Layout";
+import View from "../../components/View/View";
 
 const Rent = () => {
-  return <Layout type="rent" />;
+  return <View type="rent" />;
 };
 
 export default Rent;

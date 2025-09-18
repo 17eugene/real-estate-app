@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Container from "../Container/Container";
 import Navigation from "../Navigation/Navigation";
-import FixedNavigagion from "../FixedNavigation/FixedNavigation";
 import MobileMenuButton from "../ui/MobileMenuButton/MobileMenuButton";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import styles from "./Header.module.scss";

@@ -3,7 +3,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { minMaxPriceSchema } from "../../formValidationSchema";
-import { filterOptions, bedroomsNumberVariants } from "../../listingOptions";
+import {
+  FILTER_OPTIONS,
+  BEDROOM_NUMBER_OPTIONS,
+} from "../../data/listingOptions";
 /*----------------------------------------------------- */
 import { useListingFilters } from "../../hooks/useListingFilters";
 import { transformPriceRangeQueryStr } from "../../utils/transformPriceRangeQueryStr";
@@ -60,7 +63,7 @@ const FilterSection = ({ isOpenedFilterSection, toggleFilterSection }) => {
   function exactMatchChangeHandler(e) {
     setExactMatchBedrooms(e.target.checked);
     if (bedrooms && bedrooms !== "any") {
-      bedroomsNumberVariants.forEach((variant) => {
+      BEDROOM_NUMBER_OPTIONS.forEach((variant) => {
         if (bedrooms === variant.title) {
           setFilters({ bedrooms: variant.matchTitle });
         } else if (bedrooms === variant.matchTitle) {
@@ -107,7 +110,7 @@ const FilterSection = ({ isOpenedFilterSection, toggleFilterSection }) => {
       <div className={styles.closeBtn} onClick={toggleFilterSection}>
         <GrClose />
       </div>
-      {filterOptions?.map((filter, index) => (
+      {FILTER_OPTIONS?.map((filter, index) => (
         <div className={styles.filtersBlock} key={index}>
           <FilterButton
             filter={filter}

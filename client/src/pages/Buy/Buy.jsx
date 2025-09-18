@@ -1,7 +1,7 @@
-import Layout from "../../components/Layout/Layout";
+import View from "../../components/View/View";
 
 const Buy = () => {
-  return <Layout type="sell" />;
+  return <View type="sell" />;
 };
 
 export default Buy;

@@ -12,7 +12,7 @@ import { getAddressString } from "../../utils/getAddressString";
 import { filterImagesBundle } from "../../utils/filterImagesBundle";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getImageNameFromUrlString } from "../../utils/getImageNameFromUrlString";
-import { typeOptions, checkboxOptions } from "../../listingOptions";
+import { TYPE_OPTIONS, CHECKBOX_OPTIONS } from "../../data/listingOptions";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { app } from "../../firebase";
 import FormInput from "../../components/ui/FormInput/FormInput";
@@ -322,7 +322,7 @@ const CreateListing = () => {
           </div>
 
           <div className={styles.optionsWrapper}>
-            {checkboxOptions.map((option, index) => (
+            {CHECKBOX_OPTIONS.map((option, index) => (
               <div className={styles.checkboxContainer} key={index}>
                 <input
                   {...register(option.name)}
@@ -346,8 +346,8 @@ const CreateListing = () => {
               <option disabled value="">
                 Select the type*
               </option>
-              {typeOptions.length > 0 &&
-                typeOptions.map((option) => (
+              {TYPE_OPTIONS.length > 0 &&
+                TYPE_OPTIONS.map((option) => (
                   <option key={option.id} value={option.value}>
                     {option.value}
                   </option>
@@ -442,7 +442,9 @@ const CreateListing = () => {
             />
           </div>
 
-          {errors.photos && <p>{errors.photos.message}</p>}
+          {(errors.photos || firebaseError) && (
+            <p>{errors.photos.message || firebaseError}</p>
+          )}
 
           {uploadFilesWarning ? <p>{uploadFilesWarning}</p> : null}
 

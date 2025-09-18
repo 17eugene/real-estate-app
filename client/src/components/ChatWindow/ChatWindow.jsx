@@ -32,12 +32,7 @@ const ChatWindow = ({ setIsOpenedChat, room, socket, chatWith }) => {
     socket?.emit("join-room", room?._id);
   }, [socket, room]);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       message: "",
     },

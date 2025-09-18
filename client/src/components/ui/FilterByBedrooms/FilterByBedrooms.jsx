@@ -1,4 +1,4 @@
-import { bedroomsNumberVariants } from "../../../listingOptions";
+import { BEDROOM_NUMBER_OPTIONS } from "../../../data/listingOptions";
 import styles from "./FilterByBedrooms.module.scss";
 
 const FilterByBedrooms = ({
@@ -10,7 +10,7 @@ const FilterByBedrooms = ({
   return (
     <div className={styles.bedroomsFilterBody}>
       <div className={styles.bedroomsNumberWrapper}>
-        {bedroomsNumberVariants?.map(({ title, matchTitle }) => (
+        {BEDROOM_NUMBER_OPTIONS?.map(({ title, matchTitle }) => (
           <div className={styles.variantWrapper} key={title}>
             <input
               type="radio"
